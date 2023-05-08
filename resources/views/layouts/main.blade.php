@@ -58,7 +58,13 @@
       <div class="layout-container">
         
         <!-- Sidebar -->
-        @include('partials.sidebar')
+          <!-- Sidebar Admin -->
+          {{-- @if (Auth::user()->role == '1') --}}
+            @include('partials.sidebarAdmin')
+          <!-- Sidebar User -->
+          {{-- @elseif (Auth::user()->role == '2') --}}
+            {{-- @include('partials.sidebarUser') --}} 
+          {{-- @endif --}}
         <!-- navbar -->
         @include('partials.navbar')
         <!-- Content -->

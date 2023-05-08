@@ -155,7 +155,7 @@
     <li class="menu-item">
         <a href="" target="_blank" class="menu-link" >
         <i class="menu-icon tf-icons bx bx-support"></i>
-        <div data-i18n="Support">Test Menu</div>
+            <div data-i18n="Support">Test Menu</div>
         </a>
     </li>
     <li class="menu-item">
@@ -165,7 +165,7 @@
         class="menu-link"
         >
         <i class="menu-icon tf-icons bx bx-file"></i>
-        <div data-i18n="Documentation">Documentation</div>
+            <div data-i18n="Documentation">Documentation</div>
         </a>
     </li>
     </ul>

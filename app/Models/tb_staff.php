@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataAkunMahasiswa extends Model
+class tb_staff extends Model
 {
     use HasFactory;
-    protected $guarded = [];
-    protected $hidden = [
-        'created_at',
-        'updated_at',
-    ];
 }

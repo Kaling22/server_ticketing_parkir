@@ -14,8 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            DataKendaraanParkirSeeder::class,
-        ]);
+        // $this->call([
+        //     DataKendaraanParkirSeeder::class,
+        // ]);
     }
 }

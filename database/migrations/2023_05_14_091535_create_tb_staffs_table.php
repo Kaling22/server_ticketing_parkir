@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_kendaraan_parkirs', function (Blueprint $table) {
+        Schema::create('tb_staffs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_mahasiswa')->nullable();
-            $table->foreignId('nim')->nullable();
-            $table->char('nomer_kendaraan',13);
-            $table->date('kendaraan_masuk');
-            $table->date('kendaraan_keluar');
+            $table->string('nip')->unique();
+            $table->string('nama');
+            $table->string('no_telepon');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->timestamps();
         });
-
-
     }
 
     /**
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_kendaraan_parkirs');
+        Schema::dropIfExists('tb_staffs');
     }
 };

@@ -65,7 +65,6 @@ class data_kendaraan extends Controller
     public function edit($id)
     {
         $kendaraan = tb_kendaraan::find($id);
-        
         return view('admin.Menus.DataKendaraan.edit-data-kendaraan',compact('kendaraan'));
     }
 

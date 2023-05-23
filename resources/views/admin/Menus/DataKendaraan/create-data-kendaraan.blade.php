@@ -10,7 +10,7 @@
         @csrf
         <div class="mb-3">
             <label class="form-label">Nomer Kendaraan</label>
-            <input type="text" class="form-control" name="no_kendaraan"id="no_kendaraan" placeholder="" />
+            <input type="text" class="form-control" name="no_kendaraan"id="no_kendaraan" required/>
         </div>
         
         <button type="submit" class="btn btn-primary">Simpan</button>

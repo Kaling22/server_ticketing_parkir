@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\tb_mahasiswa;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class data_mahasiswa extends Controller
 {
@@ -14,7 +17,8 @@ class data_mahasiswa extends Controller
      */
     public function index()
     {
-        return view ('admin.Menus.DataMahasiswa.data-mahasiswa');
+        $mahasiswa = tb_mahasiswa::all();
+        return view('admin.Menus.DataMahasiswa.data-mahasiswa',compact('mahasiswa'));
     }
 
     /**
@@ -24,7 +28,7 @@ class data_mahasiswa extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.Menus.DataMahasiswa.create-data-mahasiswa');
     }
 
     /**
@@ -35,7 +39,26 @@ class data_mahasiswa extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validasi format gambar
+        $this->validate($request, [
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $image = $request->file('foto');
+        $image->storeAs('public/posts', $image->hashName());
+
+        tb_mahasiswa::create([
+            'foto' => $image->hashName(),
+            'nim' => $request->nim,
+            'nfc_num' => $request->nfc_num,
+            'name' => $request->name,
+            'jurusan' => $request->jurusan,
+            'fakultas' => $request->fakultas,
+            'angkatan' => $request->angkatan,
+            'telepon' => $request->telepon,
+            'no_kendaraan' => $request->no_kendaraan,
+        ]);
+        return redirect()->route('dataMahasiswa.index');
     }
 
     /**
@@ -57,7 +80,8 @@ class data_mahasiswa extends Controller
      */
     public function edit($id)
     {
-        //
+        $mahasiswa = tb_mahasiswa::find($id);
+        return view('admin.Menus.DataMahasiswa.edit-data-mahasiswa',compact('mahasiswa'));
     }
 
     /**
@@ -69,7 +93,30 @@ class data_mahasiswa extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $mahasiswa = tb_mahasiswa::find($id);
+        // validasi format gambar
+        $this->validate($request, [
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        $image = $request->file('foto');
+        $image->storeAs('public/posts/', $image->hashName());
+        // unlink(storage_path('public/posts/'.$mahasiswa->foto));
+        Storage::delete('public/posts'.$mahasiswa->foto);
+        $mahasiswa->update([
+            'foto' => $image->hashName(),
+            'nim' => $request->nim,
+            'nfc_num' => $request->nfc_num,
+            'name' => $request->name,
+            'jurusan' => $request->jurusan,
+            'fakultas' => $request->fakultas,
+            'angkatan' => $request->angkatan,
+            'telepon' => $request->telepon,
+            'no_kendaraan' => $request->no_kendaraan,
+        ]);
+        $mahasiswa = tb_mahasiswa::find($id);
+        
+        return redirect()->route('dataMahasiswa.index');
     }
 
     /**
@@ -80,6 +127,8 @@ class data_mahasiswa extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = tb_mahasiswa::find($id);
+        $delete->delete();
+        return redirect()->route('dataMahasiswa.index');
     }
 }

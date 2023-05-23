@@ -14,18 +14,19 @@
     <table class="table">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>No</th>
           <th>Nomer Kendaraan</th>
-          <th>Status</th>
+          <!-- <th>Status</th> -->
           <th>Actions</th>
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
+      <?php $index = 1; ?>
         @foreach ($kendaraan as $item)
         <tr>
-          <td> <strong></strong></td>
+          <td> <strong>{{$index++}}</strong></td>
           <td>{{$item->no_kendaraan}}</td>
-          <td><span class="badge bg-label-primary me-1">Aktif</span></td>
+          <!-- <td><span class="badge bg-label-primary me-1">Aktif</span></td> -->
           <td>
           <a href="{{ route('dataKendaraan.edit', $item->id) }}"
               class="btn btn-sm btn-secondary">Edit</a>

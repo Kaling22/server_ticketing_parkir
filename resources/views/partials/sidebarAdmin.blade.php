@@ -75,56 +75,38 @@
         </a>
     </li>
 
-    <!-- Layouts -->
-    <li class="menu-item">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-layout"></i>
-        <div data-i18n="Layouts">Layouts</div>
-        </a>
-
-        <ul class="menu-sub">
-        <li class="menu-item">
-            <a href="layouts-without-menu.html" class="menu-link">
-                <div data-i18n="Without menu">Without menu</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="layouts-without-navbar.html" class="menu-link">
-                <div data-i18n="Without navbar">Without navbar</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="{{ route('dataAkun.index') }}" class="menu-link">
-                <div data-i18n="Container">Container</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="layouts-fluid.html" class="menu-link">
-                <div data-i18n="Fluid">Fluid</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
-                <div data-i18n="Blank">Blank</div>
-            </a>
-        </li>
-        </ul>
-    </li>
-
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Pages</span>
     </li>
     <li class="menu-item">
-        <a href="{{ route('dataKendaraan.index') }}" class="menu-link">
+        <a href="{{ route('dataMahasiswa.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-dock-top"></i>
-            <div>Data Kendaraan Parkir</div>
+            <div>Data Mahasiswa</div>
         </a>
     </li>
     <li class="menu-item">
-        <a href="{{ route('dataRiwayat.index') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-            <div>Data Riwayat Parkir Terdahulu</div>
+        <a href="{{ route('dataKendaraan.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+            <div>Data Kendaraan</div>
         </a>
+    </li>
+    <li class="menu-item">
+        <a  class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+            <div>Data Parkir</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item">
+                <a href="{{ route('dataParkir.index') }}" class="menu-link">
+                <div>Parkir Aktif</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('dataParkir.index') }}" class="menu-link">
+                <div>Parkir Non Aktif</div>
+                </a>
+            </li>
+        </ul>
     </li>
     <li class="menu-item">
         <a  class="menu-link menu-toggle">
@@ -133,18 +115,13 @@
         </a>
         <ul class="menu-sub">
             <li class="menu-item">
-                <a href="{{ route('dataAkun.index') }}" class="menu-link">
-                <div data-i18n="Error">Staff</div>
+                <a href="{{ route('dataMahasiswa.index') }}" class="menu-link">
+                <div>Staff</div>
                 </a>
             </li>
             <li class="menu-item">
-                <a href="{{ route('dataAkun.index') }}" class="menu-link">
-                <div data-i18n="Under Maintenance">Petugas Parkir</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="{{ route('dataAkun.index') }}" class="menu-link">
-                <div data-i18n="Under Maintenance">Mahasiswa</div>
+                <a href="{{ route('dataMahasiswa.index') }}" class="menu-link">
+                <div>Petugas Parkir</div>
                 </a>
             </li>
         </ul>

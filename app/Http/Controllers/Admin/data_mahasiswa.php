@@ -101,8 +101,7 @@ class data_mahasiswa extends Controller
 
         $image = $request->file('foto');
         $image->storeAs('public/posts/', $image->hashName());
-        // unlink(storage_path('public/posts/'.$mahasiswa->foto));
-        Storage::delete('public/posts'.$mahasiswa->foto);
+        Storage::delete('public/posts/'.$mahasiswa->foto);
         $mahasiswa->update([
             'foto' => $image->hashName(),
             'nim' => $request->nim,
@@ -128,6 +127,7 @@ class data_mahasiswa extends Controller
     public function destroy($id)
     {
         $delete = tb_mahasiswa::find($id);
+        Storage::delete('public/posts/'.$delete->foto);
         $delete->delete();
         return redirect()->route('dataMahasiswa.index');
     }

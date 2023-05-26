@@ -3,9 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// use App\Http\Controllers\{
-//     Admin\DataAkunMahasiswaController
-// };
+use App\Http\Controllers\Admin\api_data_parkir;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//ENDPoint for Mahasiswa
-
+//ENDPoint for Parkir
+Route::apiResource('parkir', api_data_parkir::class);

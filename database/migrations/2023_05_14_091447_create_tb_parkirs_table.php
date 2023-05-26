@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('tb_parkirs', function (Blueprint $table) {
             $table->id();
-            $table->string('nim')->nullable();
-            $table->boolean('status');
+            $table->string('nim');
+            $table->boolean('status_masuk');
+            $table->boolean('status_keluar');
+            $table->string('created_by');
+            $table->string('updated_by');
             $table->date('date');
             $table->timestamps();
         });

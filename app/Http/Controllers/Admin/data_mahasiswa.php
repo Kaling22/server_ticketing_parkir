@@ -56,7 +56,7 @@ class data_mahasiswa extends Controller
             'fakultas' => $request->fakultas,
             'angkatan' => $request->angkatan,
             'telepon' => $request->telepon,
-            'no_kendaraan' => $request->no_kendaraan,
+            'id_kendaraan' => $request->no_kendaraan,
         ]);
         return redirect()->route('dataMahasiswa.index');
     }

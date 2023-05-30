@@ -11,4 +11,8 @@ class tb_kendaraan extends Model
     use HasFactory;
     protected $guarded=[];
     protected $primaryKey = 'id';
+    public function mahasis()
+    {
+        return $this->belongsTo(tb_mahasiswa::class);
+    }
 }

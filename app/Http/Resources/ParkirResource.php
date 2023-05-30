@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Models\tb_parkir;
+use App\Models\tb_mahasiswa;
 
 class ParkirResource extends JsonResource
 {
@@ -18,7 +20,7 @@ class ParkirResource extends JsonResource
     {
         return ([
             'id' => $this->id,
-            'nim' => $this->mahasiswa->nim,
+            'nim' => $this->nim,
             'status_masuk' => $this->status_masuk,
             'status_keluar' => $this->status_keluar,
             'created_by' => $this->created_by,

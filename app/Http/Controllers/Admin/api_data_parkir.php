@@ -6,10 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\tb_parkir;
+use App\Models\tb_mahasiswa;
 
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+
 use App\Http\Resources\ParkirResource;
+use App\Http\Resources\MahasiswaResource;
+
+use DB;
+
 class api_data_parkir extends Controller
 {
     /**
@@ -19,6 +25,7 @@ class api_data_parkir extends Controller
      */
     public function index()
     {
+       
         $resource_parkir = ParkirResource::collection(tb_parkir::all());
         return response()->json([
             'status' => 'success ',
@@ -34,7 +41,7 @@ class api_data_parkir extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -43,8 +50,9 @@ class api_data_parkir extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $par)
+    {   
+        $request = DB::table('tb_parkirs')->Join('tb_mahasiswas','tb_mahasiswas.nim','=','tb_parkirs.nim')->get($par->all());
         $validator = Validator::make($request->all(), [
             'nim' => 'required|string',
             'status_masuk' => 'required|string',
@@ -61,7 +69,7 @@ class api_data_parkir extends Controller
                 "data" => $validator->errors()
             ],Response::HTTP_NOT_ACCEPTABLE);
         }
-
+        //$par = DB::table('tb_parkirs')->Join('tb_mahasiswas','tb_mahasiswas.nim','=','tb_parkirs.id')->get($request->all());
         $resource_parkir = new ParkirResource(tb_parkir::create($request->all()));
         return response()->json([
             'status' => 'success',
@@ -76,9 +84,27 @@ class api_data_parkir extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($nim)
     {
-        //
+        try{
+            $data_parkir = tb_parkir::select('*')
+            ->where('nim', '=', $nim)
+            ->get();
+
+            //$parkir = new ParkirResource(tb_parkir::where('nim', $nim)->all());
+            return response()->json([
+                'status' => 'success ',
+                'message' => 'showing data mahasiswa',
+                'data' => $data_parkir
+            ], Response::HTTP_OK);
+        }
+        catch(\Exception $park){
+            return response()->json([
+                'status' => 'failed ',
+                'message' => 'data not found',
+                'data'=> $park->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -112,6 +138,6 @@ class api_data_parkir extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

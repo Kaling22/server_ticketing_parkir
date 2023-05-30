@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tb_mahasiswas', function (Blueprint $table) {
             $table->id();
-            $table->string('nim')->unique();
+            $table->integer('nim')->unique()->unsigned();
             $table->string('nfc_num')->unique();
             $table->string('name');
             $table->string('jurusan');
@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('angkatan');
             $table->string('foto');
             $table->string('telepon');
-            $table->string('no_kendaraan')->nullable();
+            $table->bigInteger('id_kendaraan')->unsigned();;
+            $table->foreign('id_kendaraan')->references('id')->on('tb_kendaraans')->onDelete('cascade');
             $table->timestamps();
         });
     }

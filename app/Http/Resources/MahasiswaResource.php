@@ -25,7 +25,6 @@ class MahasiswaResource extends JsonResource
             'foto' => $this->foto,
             'telepon' => $this->telepon,
             'no_kendaraan' => $this->no_kendaraan,
-            'parkir' => $this->parkir,
         ]);
     }
 }

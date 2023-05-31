@@ -50,6 +50,7 @@ class data_mahasiswa extends Controller
 
         $image = $request->file('foto');
         $image->storeAs('public/posts', $image->hashName());
+
         tb_mahasiswa::create([
             'foto' => $image->hashName(),
             'nim' => $request->nim,

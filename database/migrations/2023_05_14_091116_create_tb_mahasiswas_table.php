@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('angkatan');
             $table->string('foto');
             $table->string('telepon');
-            $table->bigInteger('id_kendaraan')->unsigned();;
+            $table->bigInteger('id_kendaraan')->unsigned();
             $table->foreign('id_kendaraan')->references('id')->on('tb_kendaraans')->onDelete('cascade');
             $table->timestamps();
         });

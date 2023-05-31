@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\ParkirResource;
 use App\Http\Resources\MahasiswaResource;
 
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class api_data_parkir extends Controller
 {
@@ -25,12 +26,12 @@ class api_data_parkir extends Controller
      */
     public function index()
     {
-       
-        $resource_parkir = ParkirResource::collection(tb_parkir::all());
+        $data_parkir = tb_parkir::select('*')->get();
+        //$resource_parkir = ParkirResource::collection(tb_parkir::all());
         return response()->json([
             'status' => 'success ',
             'message' => 'showing all parkir',
-            'data' => $resource_parkir
+            'data' => $data_parkir
         ], Response::HTTP_OK);
     }
 
@@ -50,16 +51,16 @@ class api_data_parkir extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $par)
+    public function store(Request $request)
     {   
-        $request = DB::table('tb_parkirs')->Join('tb_mahasiswas','tb_mahasiswas.nim','=','tb_parkirs.nim')->get($par->all());
+        //$request = DB::table('tb_parkirs')->Join('tb_mahasiswas','tb_mahasiswas.nim','=','tb_parkirs.nim')->get($par->all());
         $validator = Validator::make($request->all(), [
-            'nim' => 'required|string',
-            'status_masuk' => 'required|string',
-            'status_keluar' => 'required|string',
+            'nim' => 'required|integer|digits-between:1,18',
             'created_by' => 'required|string',
             'updated_by' => 'required|string',
-            'date' => 'required|string',
+            'hari' => 'required|string',
+            'tanggal' => 'required|string',
+            'jam' => 'required|string',
         ]);
 
         if($validator->fails()){
@@ -70,7 +71,18 @@ class api_data_parkir extends Controller
             ],Response::HTTP_NOT_ACCEPTABLE);
         }
         //$par = DB::table('tb_parkirs')->Join('tb_mahasiswas','tb_mahasiswas.nim','=','tb_parkirs.id')->get($request->all());
-        $resource_parkir = new ParkirResource(tb_parkir::create($request->all()));
+        $resource_parkir = tb_parkir::create([
+            'nim' => Str::slug($request->nim),
+            'status_masuk' => 1,
+            'status_keluar' => 0,
+            'created_by' => Str::slug($request->created_by),
+            'updated_by' => Str::slug($request->updated_by),
+            'hari' => $request->hari,
+            'tanggal' => $request->tanggal,
+            'jam' => $request->jam
+            ]
+        );
+
         return response()->json([
             'status' => 'success',
             'message' => 'data parkir created',
@@ -91,7 +103,7 @@ class api_data_parkir extends Controller
             ->where('nim', '=', $nim)
             ->get();
 
-            //$parkir = new ParkirResource(tb_parkir::where('nim', $nim)->all());
+            //$data_parkir = new ParkirResource(tb_parkir::where('nim', $nim)->all());
             return response()->json([
                 'status' => 'success ',
                 'message' => 'showing data mahasiswa',
@@ -127,7 +139,48 @@ class api_data_parkir extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nim' => 'required|integer|digits-between:1,18',
+            'created_by' => 'required|string',
+            'updated_by' => 'required|string',
+            'hari' => 'required|string',
+            'tanggal' => 'required|string',
+            'jam' => 'required|string',
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                "status" => "failed",
+                "message" => "failed to update data",
+                "data" => $validator->errors()
+            ],Response::HTTP_NOT_ACCEPTABLE);
+        }
+
+        try{
+            $parkir = tb_parkir::findorFail($id);
+            $parkir->update([
+                'nim' => Str::slug($request->nim),
+                'status_masuk' => 0,
+                'status_keluar' => 1,
+                'created_by' => Str::slug($request->created_by),
+                'updated_by' => Str::slug($request->updated_by),
+                'hari' => $request->hari,
+                'tanggal' => $request->tanggal,
+                'jam' => $request->jam
+            ]);
+            return response()->json([
+                'status' => 'success ',
+                'message' => 'data updated',
+                'data' => $parkir
+            ], Response::HTTP_OK);
+        }
+        catch(\Exception $e){
+            return response()->json([
+                'status' => 'failed ',
+                'message' => 'product not found',
+                'data'=> $e->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**

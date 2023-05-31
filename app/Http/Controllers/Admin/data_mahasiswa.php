@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\tb_mahasiswa;
+use App\Models\tb_kendaraan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class data_mahasiswa extends Controller
 {
@@ -28,7 +30,8 @@ class data_mahasiswa extends Controller
      */
     public function create()
     {
-        return view('admin.Menus.DataMahasiswa.create-data-mahasiswa');
+        $kendaraan = tb_kendaraan::all();
+        return view('admin.Menus.DataMahasiswa.create-data-mahasiswa', compact('kendaraan'));
     }
 
     /**
@@ -39,6 +42,7 @@ class data_mahasiswa extends Controller
      */
     public function store(Request $request)
     {
+        
         // validasi format gambar
         $this->validate($request, [
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -46,7 +50,6 @@ class data_mahasiswa extends Controller
 
         $image = $request->file('foto');
         $image->storeAs('public/posts', $image->hashName());
-
         tb_mahasiswa::create([
             'foto' => $image->hashName(),
             'nim' => $request->nim,
@@ -56,8 +59,9 @@ class data_mahasiswa extends Controller
             'fakultas' => $request->fakultas,
             'angkatan' => $request->angkatan,
             'telepon' => $request->telepon,
-            'id_kendaraan' => $request->no_kendaraan,
+            'id_kendaraan' => Str::slug($request->no_kendaraan),
         ]);
+        
         return redirect()->route('dataMahasiswa.index');
     }
 
@@ -80,8 +84,9 @@ class data_mahasiswa extends Controller
      */
     public function edit($id)
     {
+        $kendaraan = tb_kendaraan::all();
         $mahasiswa = tb_mahasiswa::find($id);
-        return view('admin.Menus.DataMahasiswa.edit-data-mahasiswa',compact('mahasiswa'));
+        return view('admin.Menus.DataMahasiswa.edit-data-mahasiswa',compact('mahasiswa', 'kendaraan'));
     }
 
     /**
@@ -93,6 +98,7 @@ class data_mahasiswa extends Controller
      */
     public function update(Request $request, $id)
     {
+        $kendaraan = tb_kendaraan::all();
         $mahasiswa = tb_mahasiswa::find($id);
         // validasi format gambar
         $this->validate($request, [
@@ -111,7 +117,7 @@ class data_mahasiswa extends Controller
             'fakultas' => $request->fakultas,
             'angkatan' => $request->angkatan,
             'telepon' => $request->telepon,
-            'no_kendaraan' => $request->no_kendaraan,
+            'id_kendaraan' => Str::slug($request->no_kendaraan),
         ]);
         $mahasiswa = tb_mahasiswa::find($id);
         

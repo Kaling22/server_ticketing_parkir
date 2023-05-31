@@ -16,13 +16,27 @@ class tb_mahasiswa extends Model
         'created_at',
         'updated_at'
     ];
+
+    protected $table = 'tb_mahasiswas';
+    protected $fillable = [
+        'nim',
+        'nfc_num',
+        'name',
+        'jurusan',
+        'fakultas',
+        'angkatan',
+        'foto',
+        'telepon',
+        'id_kendaraan'
+    ];
     public function parkir()
     {
-        return $this->hasMany(tb_parkir::class);
+        return $this->hasMany(tb_parkir::class, 'nim', 'id');
     }
 
     public function plat()
     {
-        return $this->hasMany(tb_kendaraan::class);
+        return $this->belongsTo(tb_kendaraan::class, 'id_kendaraan', 'id');
     }
+
 }

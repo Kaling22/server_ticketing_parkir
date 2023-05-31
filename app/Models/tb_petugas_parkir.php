@@ -15,5 +15,8 @@ class tb_petugas_parkir extends Model
         'updated_at'
     ];
 
-  
+    public function parkir()
+    {
+        return $this->hasMany(tb_mahasiswa::class);
+    }
 }

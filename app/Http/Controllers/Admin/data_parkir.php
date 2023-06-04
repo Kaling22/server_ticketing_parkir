@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\tb_parkir;
+
 
 class data_parkir extends Controller
 {
@@ -12,74 +14,19 @@ class data_parkir extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function aktif()
     {
-        return view ('admin.Menus.DataParkir.data-parkir');
+        $parkir_aktif = tb_parkir::where('status_masuk','=','1')->get();
+        return view('admin.Menus.DataParkir.data-parkir-aktif',compact('parkir_aktif'));
     }
-
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function nonaktif()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $parkir_non_aktif = tb_parkir::where('status_keluar','=','1')->get();
+        return view('admin.Menus.DataParkir.data-parkir-non-aktif',compact('parkir_non_aktif'));
     }
 }

@@ -56,7 +56,7 @@
             </g>
         </svg>
         </span>
-        <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+        <span class="app-brand-text demo menu-text fw-bolder ms-1">Ticketing</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -97,12 +97,12 @@
         </a>
         <ul class="menu-sub">
             <li class="menu-item">
-                <a href="{{ route('dataParkir.index') }}" class="menu-link">
+                <a href="{{ route('dataParkir.aktif') }}" class="menu-link">
                 <div>Parkir Aktif</div>
                 </a>
             </li>
             <li class="menu-item">
-                <a href="{{ route('dataParkir.index') }}" class="menu-link">
+                <a href="{{ route('dataParkir.nonaktif') }}" class="menu-link">
                 <div>Parkir Non Aktif</div>
                 </a>
             </li>
@@ -127,23 +127,4 @@
         </ul>
     </li>
     
-    <!-- Misc -->
-    <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-    <li class="menu-item">
-        <a href="" target="_blank" class="menu-link" >
-        <i class="menu-icon tf-icons bx bx-support"></i>
-            <div data-i18n="Support">Test Menu</div>
-        </a>
-    </li>
-    <li class="menu-item">
-        <a
-        href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-        target="_blank"
-        class="menu-link"
-        >
-        <i class="menu-icon tf-icons bx bx-file"></i>
-            <div data-i18n="Documentation">Documentation</div>
-        </a>
-    </li>
-    </ul>
 </aside>

@@ -30,7 +30,7 @@ class api_data_parkir extends Controller
                 ->with(['mahasiswa' => function ($query) {
                 $query->select('nim','name','nfc_num','angkatan','foto');
                 }])->get();
-        //$resource_parkir = ParkirResource::collection(tb_parkir::all());
+
         return response()->json([
             'status' => 'success ',
             'message' => 'showing all parkir',
@@ -38,15 +38,6 @@ class api_data_parkir extends Controller
         ], Response::HTTP_OK);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -121,16 +112,6 @@ class api_data_parkir extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

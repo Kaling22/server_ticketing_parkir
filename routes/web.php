@@ -14,10 +14,13 @@ Route::get('/', function () {
 
 //Admin
     //Dashboard
-    //Route::get('dashboardAdmin', 'DashboardAdminController@index'->name('dash'));
     Route::resource('dashboardAdmin', DashboardAdminController::class);
+    //Route Untuk Data Mahasiswa
     Route::resource('dataMahasiswa', data_mahasiswa::class);
+    //Route Untuk Data Kendaraan
     Route::resource('dataKendaraan', data_kendaraan::class);
-    Route::resource('dataParkir', data_parkir::class);
-    //Route::get('dashboardAdmin/admin', [DashboardAdminController::class, 'index'])->name('dashboardAdmin.index');
-    //Route::view('admin.index','DashboardAdminController@index')->name('dashboard');
+    //Route Untuk Data Parkir
+    Route::get('/aktif', [data_parkir::class,'aktif'])->name('dataParkir.aktif');
+    Route::get('/nonaktif', [data_parkir::class,'nonaktif'])->name('dataParkir.nonaktif');
+    //Route Untuk Data Petugas
+    //Route Untuk Data Staff

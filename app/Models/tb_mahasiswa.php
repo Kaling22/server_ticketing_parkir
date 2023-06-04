@@ -34,6 +34,8 @@ class tb_mahasiswa extends Model
         return $this->hasMany(tb_parkir::class, 'nim', 'id');
     }
 
+    
+
     public function plat()
     {
         return $this->belongsTo(tb_kendaraan::class, 'id_kendaraan', 'id');

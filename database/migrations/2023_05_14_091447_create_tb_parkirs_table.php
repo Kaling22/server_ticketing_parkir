@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('nim')->unsigned();
             $table->foreign('nim')->references('nim')->on('tb_mahasiswas')->onDelete('cascade');
+            // $table->string('nfc')->unsigned();
+            // $table->foreign('nfc')->references('nfc_num')->on('tb_mahasiswas')->onDelete('cascade');
             $table->boolean('status_masuk');
             $table->boolean('status_keluar')->nullable();
             $table->bigInteger('created_by')->unsigned();;

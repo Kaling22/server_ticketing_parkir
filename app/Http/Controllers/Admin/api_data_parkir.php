@@ -26,7 +26,10 @@ class api_data_parkir extends Controller
      */
     public function index()
     {
-        $data_parkir = tb_parkir::select('*')->get();
+        $data_parkir = tb_parkir::query()
+                ->with(['mahasiswa' => function ($query) {
+                $query->select('nim','name','nfc_num','angkatan','foto');
+                }])->get();
         //$resource_parkir = ParkirResource::collection(tb_parkir::all());
         return response()->json([
             'status' => 'success ',
@@ -99,10 +102,18 @@ class api_data_parkir extends Controller
     public function show($nim)
     {
         try{
-            $data_parkir = tb_parkir::select('*')
-            ->where('nim', '=', $nim)
-            ->get();
+            $data_parkir = tb_parkir::query()
+                ->with(['mahasiswa' => function ($query) {
+                $query->select('nim','name','nfc_num','angkatan','foto');
+                }])->where('nim', $nim)->latest('created_at')->first();
+            
+            //$data_parkir = tb_parkir::where('nim', $nim)->get();
 
+            // $data_parkir = tb_parkir::select('*')
+            // ->where('nim', '=', $nim)
+            // ->get();
+            // $data = DB::table('tb_parkirs')
+            // ->join('nim', 'tb_mahasiswas.nfc_num', '=', '' )
             //$data_parkir = new ParkirResource(tb_parkir::where('nim', $nim)->all());
             return response()->json([
                 'status' => 'success ',

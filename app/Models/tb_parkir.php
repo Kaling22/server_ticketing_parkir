@@ -30,8 +30,9 @@ class tb_parkir extends Model
 
     public function mahasiswa()
     {
-        return $this->belongsTo(tb_mahasiswa::class, 'nim', 'id');
+        return $this->belongsTo(tb_mahasiswa::class, 'nim', 'nim');
     }
+    
 
     public function petugas()
     {

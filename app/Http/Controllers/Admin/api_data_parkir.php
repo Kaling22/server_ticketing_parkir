@@ -56,7 +56,6 @@ class api_data_parkir extends Controller
      */
     public function store(Request $request)
     {   
-        //$request = DB::table('tb_parkirs')->Join('tb_mahasiswas','tb_mahasiswas.nim','=','tb_parkirs.nim')->get($par->all());
         $validator = Validator::make($request->all(), [
             'nim' => 'required|integer|digits-between:1,18',
             'created_by' => 'required|string',
@@ -73,7 +72,7 @@ class api_data_parkir extends Controller
                 "data" => $validator->errors()
             ],Response::HTTP_NOT_ACCEPTABLE);
         }
-        //$par = DB::table('tb_parkirs')->Join('tb_mahasiswas','tb_mahasiswas.nim','=','tb_parkirs.id')->get($request->all());
+        
         $resource_parkir = tb_parkir::create([
             'nim' => Str::slug($request->nim),
             'status_masuk' => 1,
@@ -106,15 +105,7 @@ class api_data_parkir extends Controller
                 ->with(['mahasiswa' => function ($query) {
                 $query->select('nim','name','nfc_num','angkatan','foto');
                 }])->where('nim', $nim)->latest('created_at')->first();
-            
-            //$data_parkir = tb_parkir::where('nim', $nim)->get();
 
-            // $data_parkir = tb_parkir::select('*')
-            // ->where('nim', '=', $nim)
-            // ->get();
-            // $data = DB::table('tb_parkirs')
-            // ->join('nim', 'tb_mahasiswas.nfc_num', '=', '' )
-            //$data_parkir = new ParkirResource(tb_parkir::where('nim', $nim)->all());
             return response()->json([
                 'status' => 'success ',
                 'message' => 'showing data mahasiswa',

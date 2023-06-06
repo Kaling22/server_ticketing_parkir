@@ -140,7 +140,11 @@ class api_data_parkir extends Controller
         }
 
         try{
-            $parkir = tb_parkir::findorFail($id);
+            $parkir = tb_parkir::query()
+                ->with(['mahasiswa' => function ($query) {
+                $query->select('nim','name','nfc_num','angkatan','foto');
+                }])->where('nim', $id)->latest('created_at')->first();
+            // $parkir = tb_parkir::findorFail($id);
             $parkir->update([
                 'nim' => Str::slug($request->nim),
                 'status_masuk' => 0,

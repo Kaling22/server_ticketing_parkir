@@ -4,7 +4,7 @@
 
 <div class="card">
   <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="card-header">Tabel Data Mahasiswa</h5>
+    <h5 class="card-header">Tabel Data Parkir AKtif</h5>
   </div>
   
   <div class="table-responsive text-nowrap">

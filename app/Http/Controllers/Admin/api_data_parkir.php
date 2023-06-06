@@ -120,7 +120,7 @@ class api_data_parkir extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $nim)
     {
         $validator = Validator::make($request->all(), [
             'nim' => 'required|integer|digits-between:1,18',
@@ -143,7 +143,7 @@ class api_data_parkir extends Controller
             $parkir = tb_parkir::query()
                 ->with(['mahasiswa' => function ($query) {
                 $query->select('nim','name','nfc_num','angkatan','foto');
-                }])->where('nim', $id)->latest('created_at')->first();
+                }])->where('nim', $nim)->latest('created_at')->first();
             // $parkir = tb_parkir::findorFail($id);
             $parkir->update([
                 'nim' => Str::slug($request->nim),

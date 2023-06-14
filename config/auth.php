@@ -36,9 +36,21 @@ return [
     */
 
     'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+        // 'web' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ],
+        'admins' => [
+            'driver' => 'jwt',
+            'provider' => 'admins',
+        ],
+        'staffs' => [
+            'driver' => 'jwt',
+            'provider' => 'staffs',
+        ],
+        'petugas' => [
+            'driver' => 'jwt',
+            'provider' => 'petugas',
         ],
     ],
 

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\api_data_parkir;
+use App\Http\Controllers\Admin\data_staff;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,9 +16,14 @@ use App\Http\Controllers\Admin\api_data_parkir;
 |
 */
 
+Route::post('login', [data_staff::class, 'login']);
+Route::post('register', [data_staff::class, 'register']);
+Route::post('logout',[data_staff::class,'logout'])->middleware('auth:sanctum');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 
 //ENDPoint for Parkir
 Route::apiResource('parkir', api_data_parkir::class);

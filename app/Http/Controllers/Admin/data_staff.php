@@ -1,96 +1,78 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
-
+namespace App\Http\Controllers\Admin;
+use \Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
 
+use Illuminate\Support\Facades\Validator;
 class data_staff extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
-    }
-
+    //done
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-        $credentials = $request->only('email', 'password');
-
-        $token = Auth::attempt($credentials);
-        if (!$token) {
+        if (Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
+            $auth = Auth::user();
+            $success['token'] = $auth->createToken('auth_token')->plainTextToken;
+            $success['name'] = $auth->name;
+            $success['email'] = $auth->email;
+            
             return response()->json([
-                'status' => 'error',
-                'message' => 'Unauthorized',
+                'success' => true,
+                'message'    => 'Login Berhasil',
+                'data' =>  $success  
+            ], 200);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message'    => 'Gagal Login',
+                'data' =>  null
             ], 401);
         }
-
-        $user = Auth::user();
-        return response()->json([
-                'status' => 'success',
-                'user' => $user,
-                'authorisation' => [
-                    'token' => $token,
-                    'type' => 'bearer',
-                ]
-            ]);
-
     }
-
+    //done
     public function register(Request $request){
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+        //set validation
+        $validator = Validator::make($request->all(), [
+            'name'      => 'required',
+            'email'     => 'required|email|unique:users',
+            'password'  => 'required|min:8'
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        //if validation fails
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
 
-        $token = Auth::login($user);
+        //return response JSON user is created
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        
+        $success['token'] = $user->createToken('auth_token')->plainTextToken;
+        $success['name'] = $user->name;
         return response()->json([
-            'status' => 'success',
-            'message' => 'User created successfully',
-            'user' => $user,
-            'authorisation' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
-        ]);
+            'success' => true,
+            'message'    => 'Sukses Register',
+            'data' =>  $success  
+        ], 200);
+        
     }
-
-    public function logout()
+    //done
+    public function logout(Request $request)
     {
-        Auth::logout();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Successfully logged out',
-        ]);
-    }
-
-    public function me()
-    {
-        return response()->json([
-            'status' => 'success',
-            'user' => Auth::user(),
-        ]);
-    }
-
-    public function refresh()
-    {
-        return response()->json([
-            'status' => 'success',
-            'user' => Auth::user(),
-            'authorisation' => [
-                'token' => Auth::refresh(),
-                'type' => 'bearer',
-            ]
-        ]);
+        if($request->user()->currentAccessToken()->delete()){
+            return response()->json([
+                'success' => true,
+                'message' => 'Logout Berhasil',
+            ],200);
+        }
+        else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Logout Gagal',
+            ],400);
+        }
     }
 }

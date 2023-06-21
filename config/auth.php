@@ -36,21 +36,14 @@ return [
     */
 
     'guards' => [
-        // 'web' => [
-        //     'driver' => 'session',
-        //     'provider' => 'users',
-        // ],
-        'admins' => [
-            'driver' => 'jwt',
-            'provider' => 'admins',
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
         ],
-        'staffs' => [
-            'driver' => 'jwt',
-            'provider' => 'staffs',
-        ],
-        'petugas' => [
-            'driver' => 'jwt',
-            'provider' => 'petugas',
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+            'hash' => true,
         ],
     ],
 

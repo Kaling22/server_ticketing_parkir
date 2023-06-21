@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\tb_mahasiswa;
-use App\Models\tb_petugas;
+use App\Models\User;
 
 
 class tb_parkir extends Model
@@ -36,6 +36,6 @@ class tb_parkir extends Model
 
     public function petugas()
     {
-        return $this->belongsTo(tb_petugas::class);
+        return $this->belongsTo(User::class);
     }
 }

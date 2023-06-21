@@ -22,9 +22,9 @@ return new class extends Migration
             $table->boolean('status_masuk');
             $table->boolean('status_keluar')->nullable();
             $table->bigInteger('created_by')->unsigned();;
-            $table->foreign('created_by')->references('id')->on('tb_petugas_parkirs')->onDelete('cascade');;
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');;
             $table->bigInteger('updated_by')->unsigned();;
-            $table->foreign('updated_by')->references('id')->on('tb_petugas_parkirs')->onDelete('cascade');
+            $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->string('hari');
             $table->string('tanggal');
             $table->string('jam');

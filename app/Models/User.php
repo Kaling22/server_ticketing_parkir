@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\tb_parkir;
 
 class User extends Authenticatable
 {
@@ -18,7 +19,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'role',
+        'nip_kode',
         'name',
+        'alamat',
+        'no_telepon',
         'email',
         'password',
     ];
@@ -41,5 +46,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
+    public function parkir()
+    {
+        return $this->hasMany(tb_parkir::class);
+    }
 }

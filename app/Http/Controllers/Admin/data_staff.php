@@ -17,7 +17,10 @@ class data_staff extends Controller
             $success['token'] = $auth->createToken('auth_token')->plainTextToken;
             $success['name'] = $auth->name;
             $success['email'] = $auth->email;
-            
+            $success['role'] = $auth->role;
+            $success['nip_kode'] = $auth->nip_kode;
+            $success['alamat'] = $auth->alamat;
+            $success['no_telepon'] = $auth->no_telepon;
             return response()->json([
                 'success' => true,
                 'message'    => 'Login Berhasil',
@@ -35,11 +38,14 @@ class data_staff extends Controller
     public function register(Request $request){
         //set validation
         $validator = Validator::make($request->all(), [
+            'role'      => 'required|integer|digits:1',
+            'nip_kode'      => 'required',
             'name'      => 'required',
+            'alamat'      => 'required',
+            'no_telepon'      => 'required|integer|max:15',
             'email'     => 'required|email|unique:users',
             'password'  => 'required|min:8'
         ]);
-
         //if validation fails
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
@@ -52,6 +58,11 @@ class data_staff extends Controller
         
         $success['token'] = $user->createToken('auth_token')->plainTextToken;
         $success['name'] = $user->name;
+        $success['email'] = $user->email;
+        $success['role'] = $user->role;
+        $success['nip_kode'] = $user->nip_kode;
+        $success['alamat'] = $user->alamat;
+        $success['no_telepon'] = $user->no_telepon;
         return response()->json([
             'success' => true,
             'message'    => 'Sukses Register',

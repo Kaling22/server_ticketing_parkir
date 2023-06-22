@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\data_mahasiswa;
 use App\Http\Controllers\Admin\data_kendaraan;
 use App\Http\Controllers\Admin\data_parkir;
+use App\Http\Controllers\Admin\data_petugas_parkir;
+use App\Http\Controllers\Admin\data_staff;
 
 
 Route::get('/', function () {
@@ -23,4 +25,6 @@ Route::get('/', function () {
     Route::get('/aktif', [data_parkir::class,'aktif'])->name('dataParkir.aktif');
     Route::get('/nonaktif', [data_parkir::class,'nonaktif'])->name('dataParkir.nonaktif');
     //Route Untuk Data Petugas
+    Route::resource('dataPetugas', data_petugas_parkir::class);
     //Route Untuk Data Staff
+    Route::resource('dataStaff', data_staff::class);

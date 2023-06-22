@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('nip_kode');
             $table->string('name');
             $table->string('alamat');
-            $table->integer('no_telepon');
+            $table->string('no_telepon');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

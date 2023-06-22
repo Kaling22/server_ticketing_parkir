@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+
+use Illuminate\Support\Facades\Validator;
 
 class data_petugas_parkir extends Controller
 {
@@ -14,7 +17,8 @@ class data_petugas_parkir extends Controller
      */
     public function index()
     {
-        //
+        $petugas = User::where('role',3)->get();
+        return view('admin.Menus.DataPetugas.data-petugas',compact('petugas'));
     }
 
     /**
@@ -24,7 +28,7 @@ class data_petugas_parkir extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.Menus.DataPetugas.create-data-petugas');
     }
 
     /**
@@ -35,7 +39,24 @@ class data_petugas_parkir extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'role'      => 'required|integer|digits:1',
+            'nip_kode'      => 'required',
+            'name'      => 'required',
+            'alamat'      => 'required',
+            'no_telepon'      => 'required|integer|max:15',
+            'email'     => 'required|email|unique:users',
+            'password'  => 'required|min:8'
+        ]);
+
+        
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $user = User::create($input);
+        
+        $success['token'] = $user->createToken('auth_token')->plainTextToken;
+
+        return redirect()->route('dataPetugas.index');
     }
 
     /**

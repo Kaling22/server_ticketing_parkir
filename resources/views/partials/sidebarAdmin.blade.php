@@ -115,12 +115,12 @@
         </a>
         <ul class="menu-sub">
             <li class="menu-item">
-                <a href="{{ route('dataMahasiswa.index') }}" class="menu-link">
+                <a href="{{ route('dataStaff.index') }}" class="menu-link">
                 <div>Staff</div>
                 </a>
             </li>
             <li class="menu-item">
-                <a href="{{ route('dataMahasiswa.index') }}" class="menu-link">
+                <a href="{{ route('dataPetugas.index') }}" class="menu-link">
                 <div>Petugas Parkir</div>
                 </a>
             </li>

@@ -40,7 +40,7 @@ class data_petugas_parkir extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'role'      => 'required|integer|digits:1',
+            //'role'      => 3,
             'nip_kode'      => 'required',
             'name'      => 'required',
             'alamat'      => 'required',
@@ -51,9 +51,17 @@ class data_petugas_parkir extends Controller
 
         
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
-        
+        //$input['password'] = bcrypt($input['password']);
+        //$user = User::create($input);
+        $user = User::create([
+            'role' => 3,
+            'nip_kode' => $request->nip_kode,
+            'name' => $request->name,
+            'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telepon,
+            'email' => $request->email,
+            'password' => bcrypt($input['password']),
+        ]);
         $success['token'] = $user->createToken('auth_token')->plainTextToken;
 
         return redirect()->route('dataPetugas.index');

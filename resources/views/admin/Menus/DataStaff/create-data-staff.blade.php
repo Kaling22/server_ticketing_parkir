@@ -24,10 +24,10 @@
             <label class="form-label">No Telepon</label>
             <input type="text" class="form-control" name="no_telepon" required/>
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label class="form-label">Role</label>
-            <input type="text" class="form-control" name="role" required value="2" readonly/>
-        </div>
+            <input type="text" class="form-control" name="role" required value="2" disabled/>
+        </div> -->
         <div class="mb-3">
             <label class="form-label">E-Mail</label>
             <input type="text" class="form-control" name="email" required/>

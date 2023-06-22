@@ -9,7 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 class akun extends Controller
 {
-    //done
+    //Done
+    //Global
     public function login(Request $request)
     {
         if (Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
@@ -34,11 +35,12 @@ class akun extends Controller
             ], 401);
         }
     }
-    //done
+    //Done
+    //REgister Khusus Admin
     public function register(Request $request){
         //set validation
         $validator = Validator::make($request->all(), [
-            'role'      => 'required|integer|digits:1',
+            //'role'      => 'required|integer|digits:1',
             'nip_kode'      => 'required',
             'name'      => 'required',
             'alamat'      => 'required',
@@ -53,8 +55,17 @@ class akun extends Controller
 
         //return response JSON user is created
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
+        //$input['password'] = bcrypt($input['password']);
+        //$user = User::create($input);
+        $user = User::create([
+            'role' => 1,
+            'nip_kode' => $request->nip_kode,
+            'name' => $request->name,
+            'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telepon,
+            'email' => $request->email,
+            'password' => bcrypt($input['password']),
+        ]);
         
         $success['token'] = $user->createToken('auth_token')->plainTextToken;
         $success['name'] = $user->name;
@@ -71,6 +82,7 @@ class akun extends Controller
         
     }
     //done
+    //Global
     public function logout(Request $request)
     {
         if($request->user()->currentAccessToken()->delete()){

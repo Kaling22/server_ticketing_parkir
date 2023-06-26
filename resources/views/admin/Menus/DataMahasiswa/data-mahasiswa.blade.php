@@ -17,6 +17,7 @@
           <th>No</th>
           <th>NIM</th>
           <th>NFC Number</th>
+          <th>KTP Number</th>
           <th>Nama</th>
           <th>Jurusan</th>
           <th>Fakultas</th>
@@ -34,6 +35,7 @@
           <td> <strong>{{$index++}}</strong></td>
           <td>{{$item->nim}}</td>
           <td>{{$item->nfc_num}}</td>
+          <td>{{$item->nfc_num_ktp}}</td>
           <td>{{$item->name}}</td>
           <td>{{$item->jurusan}}</td>
           <td>{{$item->fakultas}}</td>

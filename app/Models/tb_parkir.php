@@ -19,6 +19,8 @@ class tb_parkir extends Model
     ];
     protected $fillable = [
         'nim',
+        'nfc_num',
+        'nfc_num_ktp',
         'status_masuk',
         'status_keluar',
         'created_by',
@@ -31,6 +33,14 @@ class tb_parkir extends Model
     public function mahasiswa()
     {
         return $this->belongsTo(tb_mahasiswa::class, 'nim', 'nim');
+    }
+    public function mahasiswa_nfc()
+    {
+        return $this->belongsTo(tb_mahasiswa::class, 'nfc_num', 'nfc_num');
+    }
+    public function mahasiswa_ktp()
+    {
+        return $this->belongsTo(tb_mahasiswa::class, 'nfc_num_ktp', 'nfc_num_ktp');
     }
     
 

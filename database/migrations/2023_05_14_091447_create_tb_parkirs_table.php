@@ -15,15 +15,17 @@ return new class extends Migration
     {
         Schema::create('tb_parkirs', function (Blueprint $table) {
             $table->id();
-            $table->integer('nim')->unsigned();
+            $table->integer('nim')->unsigned()->nullable();
             $table->foreign('nim')->references('nim')->on('tb_mahasiswas')->onDelete('cascade');
-            // $table->string('nfc')->unsigned();
-            // $table->foreign('nfc')->references('nfc_num')->on('tb_mahasiswas')->onDelete('cascade');
+            $table->integer('nfc_num')->unsigned()->nullable();
+            $table->foreign('nfc_num')->references('nfc_num')->on('tb_mahasiswas')->onDelete('cascade');
+            $table->integer('nfc_num_ktp')->unsigned()->nullable();
+            $table->foreign('nfc_num_ktp')->references('nfc_num_ktp')->on('tb_mahasiswas')->onDelete('cascade');
             $table->boolean('status_masuk');
             $table->boolean('status_keluar')->nullable();
-            $table->bigInteger('created_by')->unsigned();;
+            $table->bigInteger('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');;
-            $table->bigInteger('updated_by')->unsigned();;
+            $table->bigInteger('updated_by')->unsigned();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->string('hari');
             $table->string('tanggal');

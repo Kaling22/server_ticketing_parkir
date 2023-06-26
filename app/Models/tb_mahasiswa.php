@@ -21,17 +21,27 @@ class tb_mahasiswa extends Model
     protected $fillable = [
         'nim',
         'nfc_num',
+        'nfc_num_ktp',
         'name',
         'jurusan',
         'fakultas',
         'angkatan',
         'foto',
         'telepon',
-        'id_kendaraan'
+        'id_kendaraan',
+        'status_mahasiswa'
     ];
     public function parkir()
     {
         return $this->hasMany(tb_parkir::class, 'nim', 'id');
+    }
+    public function parkir_nfc()
+    {
+        return $this->hasMany(tb_parkir::class, 'nfc_num', 'id');
+    }
+    public function parkir_ktp()
+    {
+        return $this->hasMany(tb_parkir::class, 'nfc_num_ktp', 'id');
     }
 
     

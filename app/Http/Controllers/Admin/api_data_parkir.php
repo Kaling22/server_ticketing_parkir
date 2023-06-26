@@ -48,9 +48,11 @@ class api_data_parkir extends Controller
     public function store(Request $request)
     {   
         $validator = Validator::make($request->all(), [
-            'nim' => 'required|integer|digits-between:1,18',
+            // 'nim' => 'required|integer|digits-between:1,18',
+            // 'nfc_num' => 'required|integer|digits-between:1,18',
+            // 'nfc_num_ktp' => 'required|integer|digits-between:1,18',
             'created_by' => 'required|string',
-            'updated_by' => 'required|string',
+            //'updated_by' => 'required|string',
             'hari' => 'required|string',
             'tanggal' => 'required|string',
             'jam' => 'required|string',
@@ -66,10 +68,12 @@ class api_data_parkir extends Controller
         
         $resource_parkir = tb_parkir::create([
             'nim' => Str::slug($request->nim),
+            'nfc_num' => Str::slug($request->nfc_num),
+            'nfc_num_ktp' => Str::slug($request->nfc_num_ktp),
             'status_masuk' => 1,
             'status_keluar' => 0,
             'created_by' => Str::slug($request->created_by),
-            'updated_by' => Str::slug($request->updated_by),
+            'updated_by' => Str::slug($request->created_by),
             'hari' => $request->hari,
             'tanggal' => $request->tanggal,
             'jam' => $request->jam
@@ -89,13 +93,13 @@ class api_data_parkir extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($nim)
+    public function show($para)
     {
         try{
             $data_parkir = tb_parkir::query()
                 ->with(['mahasiswa' => function ($query) {
-                $query->select('nim','name','nfc_num','angkatan','foto');
-                }])->where('nim', $nim)->latest('created_at')->first();
+                $query->select('nim','name','nfc_num','nfc_num_ktp','angkatan','foto');
+                }])->where('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
 
             return response()->json([
                 'status' => 'success ',
@@ -120,15 +124,11 @@ class api_data_parkir extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $nim)
+    public function update(Request $request, $para)
     {
         $validator = Validator::make($request->all(), [
             'nim' => 'required|integer|digits-between:1,18',
-            'created_by' => 'required|string',
-            'updated_by' => 'required|string',
-            'hari' => 'required|string',
-            'tanggal' => 'required|string',
-            'jam' => 'required|string',
+
         ]);
 
         if($validator->fails()){
@@ -142,18 +142,13 @@ class api_data_parkir extends Controller
         try{
             $parkir = tb_parkir::query()
                 ->with(['mahasiswa' => function ($query) {
-                $query->select('nim','name','nfc_num','angkatan','foto');
-                }])->where('nim', $nim)->latest('created_at')->first();
+                $query->select('nim','name','nfc_num','nfc_num_ktp','angkatan','foto');
+                }])->where('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
             // $parkir = tb_parkir::findorFail($id);
             $parkir->update([
-                'nim' => Str::slug($request->nim),
+                'updated_by' => Str::slug($request->updated_by),
                 'status_masuk' => 0,
                 'status_keluar' => 1,
-                'created_by' => Str::slug($request->created_by),
-                'updated_by' => Str::slug($request->updated_by),
-                'hari' => $request->hari,
-                'tanggal' => $request->tanggal,
-                'jam' => $request->jam
             ]);
             return response()->json([
                 'status' => 'success ',

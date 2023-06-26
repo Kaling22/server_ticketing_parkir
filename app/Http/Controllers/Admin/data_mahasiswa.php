@@ -55,11 +55,13 @@ class data_mahasiswa extends Controller
             'foto' => $image->hashName(),
             'nim' => $request->nim,
             'nfc_num' => $request->nfc_num,
+            'nfc_num_ktp' => $request->nfc_num_ktp,
             'name' => $request->name,
             'jurusan' => $request->jurusan,
             'fakultas' => $request->fakultas,
             'angkatan' => $request->angkatan,
             'telepon' => $request->telepon,
+            'status_mahasiswa' => $request->status_mahasiswa,
             'id_kendaraan' => Str::slug($request->no_kendaraan),
         ]);
         
@@ -113,11 +115,13 @@ class data_mahasiswa extends Controller
             'foto' => $image->hashName(),
             'nim' => $request->nim,
             'nfc_num' => $request->nfc_num,
+            'nfc_num_ktp' => $request->nfc_num_ktp,
             'name' => $request->name,
             'jurusan' => $request->jurusan,
             'fakultas' => $request->fakultas,
             'angkatan' => $request->angkatan,
             'telepon' => $request->telepon,
+            'status_mahasiswa' => $request->status_mahasiswa,
             'id_kendaraan' => Str::slug($request->no_kendaraan),
         ]);
         $mahasiswa = tb_mahasiswa::find($id);

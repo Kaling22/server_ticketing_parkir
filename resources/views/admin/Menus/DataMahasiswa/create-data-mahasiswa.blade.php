@@ -14,7 +14,11 @@
         </div>
         <div class="mb-3">
             <label class="form-label">NFC Number</label>
-            <input type="text" class="form-control" name="nfc_num" required/>
+            <input type="text" class="form-control" name="nfc_num"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">KTP Number</label>
+            <input type="text" class="form-control" name="nfc_num_ktp"/>
         </div>
         <div class="mb-3">
             <label class="form-label">Nama Lengkap</label>
@@ -35,6 +39,10 @@
         <div class="mb-3">
             <label class="form-label">Telepon</label>
             <input type="text" class="form-control" name="telepon" required/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <input type="text" class="form-control" name="status_mahasiswa" required/>
         </div>
         <div class="mb-3">
             <label class="form-label">No Kendaraan</label>

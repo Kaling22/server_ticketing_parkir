@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('tb_mahasiswas', function (Blueprint $table) {
             $table->id();
             $table->integer('nim')->unique()->unsigned();
-            $table->string('nfc_num')->unique()->nullable();
-            $table->string('nfc_num_ktp')->unique()->nullable();
+            $table->integer('nfc_num')->unique()->unsigned()->nullable();
+            $table->integer('nfc_num_ktp')->unique()->unsigned()->nullable();
             $table->string('name');
             $table->string('jurusan');
             $table->string('fakultas');

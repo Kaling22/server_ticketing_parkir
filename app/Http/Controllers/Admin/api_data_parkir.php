@@ -65,11 +65,28 @@ class api_data_parkir extends Controller
                 "data" => $validator->errors()
             ],Response::HTTP_NOT_ACCEPTABLE);
         }
-        
+
+        if ($request->nim==null) {
+            $z=$request->nim;
+        }else {
+            $z=Str::slug($request->nim);
+        }
+
+        if ($request->nfc_num==null) {
+            $x=$request->nfc_num;
+        }else {
+            $x=Str::slug($request->nfc_num);
+        }
+
+        if ($request->nfc_num_ktp==null) {
+            $y=$request->nfc_num_ktp;
+        }else {
+            $y=Str::slug($request->nfc_num_ktp);
+        }
         $resource_parkir = tb_parkir::create([
-            'nim' => Str::slug($request->nim),
-            'nfc_num' => Str::slug($request->nfc_num),
-            'nfc_num_ktp' => Str::slug($request->nfc_num_ktp),
+            'nim' => $z,
+            'nfc_num' => $x,
+            'nfc_num_ktp' => $y,
             'status_masuk' => 1,
             'status_keluar' => 0,
             'created_by' => Str::slug($request->created_by),
@@ -96,6 +113,7 @@ class api_data_parkir extends Controller
     public function show($para)
     {
         try{
+        
             $data_parkir = tb_parkir::query()
                 ->with(['mahasiswa' => function ($query) {
                 $query->select('nim','name','nfc_num','nfc_num_ktp','angkatan','foto');
@@ -126,18 +144,18 @@ class api_data_parkir extends Controller
      */
     public function update(Request $request, $para)
     {
-        $validator = Validator::make($request->all(), [
-            'nim' => 'required|integer|digits-between:1,18',
+        // $validator = Validator::make($request->all(), [
+        //     'nim' => 'required|integer|digits-between:1,18',
 
-        ]);
+        // ]);
 
-        if($validator->fails()){
-            return response()->json([
-                "status" => "failed",
-                "message" => "failed to update data",
-                "data" => $validator->errors()
-            ],Response::HTTP_NOT_ACCEPTABLE);
-        }
+        // if($validator->fails()){
+        //     return response()->json([
+        //         "status" => "failed",
+        //         "message" => "failed to update data",
+        //         "data" => $validator->errors()
+        //     ],Response::HTTP_NOT_ACCEPTABLE);
+        // }
 
         try{
             $parkir = tb_parkir::query()

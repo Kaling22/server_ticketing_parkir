@@ -16,7 +16,7 @@ use App\Http\Resources\MahasiswaResource;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+use Carbon\Carbon;
 class api_data_parkir extends Controller
 {
     /**
@@ -48,14 +48,8 @@ class api_data_parkir extends Controller
     public function store(Request $request)
     {   
         $validator = Validator::make($request->all(), [
-            // 'nim' => 'required|integer|digits-between:1,18',
-            // 'nfc_num' => 'required|integer|digits-between:1,18',
-            // 'nfc_num_ktp' => 'required|integer|digits-between:1,18',
             'created_by' => 'required|string',
             //'updated_by' => 'required|string',
-            'hari' => 'required|string',
-            'tanggal' => 'required|string',
-            'jam' => 'required|string',
         ]);
 
         if($validator->fails()){
@@ -83,25 +77,35 @@ class api_data_parkir extends Controller
         }else {
             $y=Str::slug($request->nfc_num_ktp);
         }
-        $resource_parkir = tb_parkir::create([
-            'nim' => $z,
-            'nfc_num' => $x,
-            'nfc_num_ktp' => $y,
-            'status_masuk' => 1,
-            'status_keluar' => 0,
-            'created_by' => Str::slug($request->created_by),
-            'updated_by' => Str::slug($request->created_by),
-            'hari' => $request->hari,
-            'tanggal' => $request->tanggal,
-            'jam' => $request->jam
-            ]
-        );
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'data parkir created',
-            'data' => $resource_parkir
-        ], Response::HTTP_CREATED);
+        if ($request->nim==null && $request->nfc_num==null && $request->nfc_num_ktp==null) {
+            return response()->json([
+                "success" => false,
+                "message" => "Isi salah satu data antara NIM, NFC atau KTP",
+                "data" => null
+            ],Response::HTTP_NOT_ACCEPTABLE);
+        }else {
+            //$day = ;
+            $resource_parkir = tb_parkir::create([
+                'nim' => $z,
+                'nfc_num' => $x,
+                'nfc_num_ktp' => $y,
+                'status_masuk' => 1,
+                'status_keluar' => 0,
+                'created_by' => Str::slug($request->created_by),
+                'updated_by' => Str::slug($request->created_by),
+                'hari' => Carbon::now()->isoFormat('dddd'),
+                'tanggal' => Carbon::now()->isoFormat('DD - MM - YYYY'),
+                'jam' => Carbon::now()->isoFormat('hh:mm:ss')
+                ]
+            );
+            return response()->json([
+                'success' => true,
+                'message' => 'data parkir created',
+                'data' => $resource_parkir
+            ], Response::HTTP_CREATED);
+        }
+
     }
 
     /**
@@ -120,14 +124,14 @@ class api_data_parkir extends Controller
                 }])->where('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
 
             return response()->json([
-                'status' => 'success ',
+                'success' => true,
                 'message' => 'showing data mahasiswa',
                 'data' => $data_parkir
             ], Response::HTTP_OK);
         }
         catch(\Exception $park){
             return response()->json([
-                'status' => 'failed ',
+                'success' => false,
                 'message' => 'data not found',
                 'data'=> $park->getMessage()
             ], Response::HTTP_NOT_FOUND);
@@ -167,16 +171,19 @@ class api_data_parkir extends Controller
                 'updated_by' => Str::slug($request->updated_by),
                 'status_masuk' => 0,
                 'status_keluar' => 1,
+                'hari' => Carbon::now()->isoFormat('dddd'),
+                'tanggal' => Carbon::now()->isoFormat('DD - MM - YYYY'),
+                'jam' => Carbon::now()->isoFormat('hh:mm:ss')
             ]);
             return response()->json([
-                'status' => 'success ',
+                'success' =>  true,
                 'message' => 'data updated',
                 'data' => $parkir
             ], Response::HTTP_OK);
         }
         catch(\Exception $e){
             return response()->json([
-                'status' => 'failed ',
+                'success' => false,
                 'message' => 'product not found',
                 'data'=> $e->getMessage()
             ], Response::HTTP_NOT_FOUND);

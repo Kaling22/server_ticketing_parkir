@@ -28,7 +28,7 @@ class api_data_parkir extends Controller
     {
         $data_parkir = tb_parkir::query()
                 ->with(['mahasiswa' => function ($query) {
-                $query->select('nim','name','nfc_num','angkatan','foto');
+                $query->select('nim','name','nfc_num','nfc_num_ktp','angkatan','foto');
                 }])->get();
 
         return response()->json([

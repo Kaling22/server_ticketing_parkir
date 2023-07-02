@@ -16,6 +16,7 @@ class akun extends Controller
         if (Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
             $auth = Auth::user();
             $success['token'] = $auth->createToken('auth_token')->plainTextToken;
+            $success['id'] = $auth->id;
             $success['name'] = $auth->name;
             $success['email'] = $auth->email;
             $success['role'] = $auth->role;

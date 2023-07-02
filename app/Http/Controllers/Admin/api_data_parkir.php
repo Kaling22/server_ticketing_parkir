@@ -11,9 +11,6 @@ use App\Models\tb_mahasiswa;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
-use App\Http\Resources\ParkirResource;
-use App\Http\Resources\MahasiswaResource;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -61,19 +58,19 @@ class api_data_parkir extends Controller
         }
 
         if ($request->nim==null) {
-            $z=$request->nim;
+            $z=null;
         }else {
             $z=Str::slug($request->nim);
         }
 
         if ($request->nfc_num==null) {
-            $x=$request->nfc_num;
+            $x=null;
         }else {
             $x=Str::slug($request->nfc_num);
         }
 
         if ($request->nfc_num_ktp==null) {
-            $y=$request->nfc_num_ktp;
+            $y=null;
         }else {
             $y=Str::slug($request->nfc_num_ktp);
         }
@@ -103,7 +100,7 @@ class api_data_parkir extends Controller
                 'success' => true,
                 'message' => 'data parkir created',
                 'data' => $resource_parkir
-            ], Response::HTTP_CREATED);
+            ], Response::HTTP_OK);
         }
 
     }
@@ -117,11 +114,11 @@ class api_data_parkir extends Controller
     public function show($para)
     {
         try{
-        
+
             $data_parkir = tb_parkir::query()
                 ->with(['mahasiswa' => function ($query) {
-                $query->select('nim','name','nfc_num','nfc_num_ktp','angkatan','foto');
-                }])->where('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
+                $query->select('nim','name','jurusan','fakultas','nfc_num','nfc_num_ktp','angkatan','foto');
+                }])->orWhere('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
 
             return response()->json([
                 'success' => true,
@@ -148,23 +145,10 @@ class api_data_parkir extends Controller
      */
     public function update(Request $request, $para)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'nim' => 'required|integer|digits-between:1,18',
-
-        // ]);
-
-        // if($validator->fails()){
-        //     return response()->json([
-        //         "status" => "failed",
-        //         "message" => "failed to update data",
-        //         "data" => $validator->errors()
-        //     ],Response::HTTP_NOT_ACCEPTABLE);
-        // }
-
         try{
             $parkir = tb_parkir::query()
                 ->with(['mahasiswa' => function ($query) {
-                $query->select('nim','name','nfc_num','nfc_num_ktp','angkatan','foto');
+                $query->select('nim','name','jurusan','fakultas','nfc_num','nfc_num_ktp','angkatan','foto');
                 }])->where('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
             // $parkir = tb_parkir::findorFail($id);
             $parkir->update([

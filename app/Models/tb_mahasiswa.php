@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\tb_parkir;
-use App\Models\tb_kendaraan;
 
 class tb_mahasiswa extends Model
 {
@@ -28,7 +27,7 @@ class tb_mahasiswa extends Model
         'angkatan',
         'foto',
         'telepon',
-        'id_kendaraan',
+        'kendaraan',
         'status_mahasiswa'
     ];
     public function parkir()
@@ -42,13 +41,6 @@ class tb_mahasiswa extends Model
     public function parkir_ktp()
     {
         return $this->hasMany(tb_parkir::class, 'nfc_num_ktp', 'id');
-    }
-
-    
-
-    public function plat()
-    {
-        return $this->belongsTo(tb_kendaraan::class, 'id_kendaraan', 'id');
     }
 
 }

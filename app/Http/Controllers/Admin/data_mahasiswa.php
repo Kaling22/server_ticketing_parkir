@@ -9,6 +9,7 @@ use App\Models\tb_kendaraan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use \Log;
 
 class data_mahasiswa extends Controller
 {
@@ -20,6 +21,7 @@ class data_mahasiswa extends Controller
     public function index()
     {
         $mahasiswa = tb_mahasiswa::all();
+        
         return view('admin.Menus.DataMahasiswa.data-mahasiswa',compact('mahasiswa'));
     }
 
@@ -30,8 +32,7 @@ class data_mahasiswa extends Controller
      */
     public function create()
     {
-        $kendaraan = tb_kendaraan::all();
-        return view('admin.Menus.DataMahasiswa.create-data-mahasiswa', compact('kendaraan'));
+        return view('admin.Menus.DataMahasiswa.create-data-mahasiswa');
     }
 
     /**
@@ -50,7 +51,8 @@ class data_mahasiswa extends Controller
 
         $image = $request->file('foto');
         $image->storeAs('public/posts', $image->hashName());
-
+        $mahasiswa = new tb_mahasiswa;
+        $plat = implode(",", $request->kendaraan);
         tb_mahasiswa::create([
             'foto' => $image->hashName(),
             'nim' => $request->nim,
@@ -62,7 +64,7 @@ class data_mahasiswa extends Controller
             'angkatan' => $request->angkatan,
             'telepon' => $request->telepon,
             'status_mahasiswa' => $request->status_mahasiswa,
-            'id_kendaraan' => Str::slug($request->no_kendaraan),
+            'kendaraan' => $plat
         ]);
         
         return redirect()->route('dataMahasiswa.index');

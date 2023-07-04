@@ -47,12 +47,9 @@
         </div>
         <div class="mb-3">
             <label class="form-label">No Kendaraan</label>
-            <select name="no_kendaraan" class="form-control">
-                @foreach ($kendaraan as $ken)
-                    <option value="{{$ken->id}}">{{$ken -> no_kendaraan}}</option>
-                @endforeach
-            </select>
+            <input type="text" class="form-control" name="kendaraan" value="{{$mahasiswa->kendaraan}}" required/>
         </div>
+
         <div class="mb-3">
             <label class="form-label">Foto</label>
             <div class="d-flex align-items-start align-items-sm-center gap-4">

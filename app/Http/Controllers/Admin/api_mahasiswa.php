@@ -19,15 +19,21 @@ class api_mahasiswa extends Controller
      */
     public function show($para)
     {
+        $tes =[];
         try{
-            $data_mahasiswa = tb_mahasiswa::query()
-                ->select('nim','name','jurusan','fakultas','nfc_num','nfc_num_ktp','angkatan','foto')
-                ->orWhere('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
+           $cars = tb_mahasiswa::query()->select('kendaraan')
+            ->orWhere('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
 
+            $explode_id = explode(',', $cars->kendaraan);
+            $data_mahasiswa = array_merge($explode_id);
+
+            $sql_mahasiswa = tb_mahasiswa::select('nim','name','jurusan','fakultas','nfc_num','nfc_num_ktp','angkatan','foto')
+                ->orWhere('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
+                $sql_mahasiswa['kendaraan'] = $explode_id;
             return response()->json([
                 'success' => true,
                 'message' => 'showing data mahasiswa',
-                'data' => $data_mahasiswa
+                'data' => $sql_mahasiswa,
             ], Response::HTTP_OK);
         }
         catch(\Exception $park){

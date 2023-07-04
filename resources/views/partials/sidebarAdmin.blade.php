@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-    <a href="{{ route('dashboardAdmin.index') }}" class="app-brand-link">
+    <a href="{{ route('Home') }}" class="app-brand-link">
         <span class="app-brand-logo demo">
         <svg
             width="25"
@@ -69,7 +69,7 @@
     <ul class="menu-inner py-1">
     <!-- Dashboard -->
     <li class="menu-item active">
-        <a href="{{ route('dashboardAdmin.index') }}" class="menu-link">
+        <a href="{{ route('Home') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Dashboard</div>
         </a>
@@ -84,12 +84,7 @@
             <div>Data Mahasiswa</div>
         </a>
     </li>
-    <li class="menu-item">
-        <a href="{{ route('dataKendaraan.index') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-dock-top"></i>
-            <div>Data Kendaraan</div>
-        </a>
-    </li>
+
     <li class="menu-item">
         <a  class="menu-link menu-toggle">
             <i class="menu-icon tf-icons bx bx-cube-alt"></i>

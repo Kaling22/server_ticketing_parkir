@@ -1,8 +1,8 @@
 @extends ('layouts.main')
 @section('container')
 <!-- Content -->
-
-<div class="card">
+@if (Auth::user()->role == '1')
+  <div class="card">
 <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="card-header">Tabel Data Staff</h5>
     <a href="{{route('dataStaff.create')}}" type="button" class="btn btn-primary" >
@@ -38,4 +38,6 @@
     </table>
   </div>
 </div>
+@else
+@endif
 @endsection

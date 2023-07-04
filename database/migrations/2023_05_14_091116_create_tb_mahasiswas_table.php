@@ -25,8 +25,7 @@ return new class extends Migration
             $table->string('foto');
             $table->string('telepon');
             $table->smallInteger('status_mahasiswa');
-            $table->bigInteger('id_kendaraan')->unsigned();
-            $table->foreign('id_kendaraan')->references('id')->on('tb_kendaraans')->onDelete('cascade');
+            $table->json('kendaraan');
             $table->timestamps();
         });
     }

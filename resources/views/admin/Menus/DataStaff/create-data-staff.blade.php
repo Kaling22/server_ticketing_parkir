@@ -1,5 +1,6 @@
 @extends ('layouts.main')
 @section('container')
+@if (Auth::user()->role == '1')
 <div class="col-xl">
     <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
@@ -24,10 +25,6 @@
             <label class="form-label">No Telepon</label>
             <input type="text" class="form-control" name="no_telepon" required/>
         </div>
-        <!-- <div class="mb-3">
-            <label class="form-label">Role</label>
-            <input type="text" class="form-control" name="role" required value="2" disabled/>
-        </div> -->
         <div class="mb-3">
             <label class="form-label">E-Mail</label>
             <input type="text" class="form-control" name="email" required/>
@@ -36,9 +33,11 @@
             <label class="form-label">Password</label>
             <input type="text" class="form-control" name="password" required placeholder="Min 8 Karakter"/>
         </div>       
-        <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </div>
     </div>
     </div>
+@else
+@endif
 @endsection

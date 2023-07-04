@@ -44,14 +44,19 @@
             <label class="form-label">Status</label>
             <input type="text" class="form-control" name="status_mahasiswa" required/>
         </div>
-        <div class="mb-3">
-            <label class="form-label">No Kendaraan</label>
-            <select name="no_kendaraan" class="form-control">
-                @foreach ($kendaraan as $ken)
-                    <option value="{{$ken->id}}">{{$ken -> no_kendaraan}}</option>
-                @endforeach
-            </select>
-        </div>
+        <table class="table table-bordered" id="dynamicAddRemove">
+            <tr>
+                <th>Nomer Kendaraan</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="kendaraan[0]" placeholder="Enter subject" class="form-control" readonly/>
+                </td>
+                <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add</button></td>
+            </tr>
+        </table>
+        
+
         <div class="mb-3">
             <label class="form-label">Foto</label>
             <div class="d-flex align-items-start align-items-sm-center gap-4">

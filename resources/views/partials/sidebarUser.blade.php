@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-    <a href="{{ route('dashboardAdmin.index') }}" class="app-brand-link">
+    <a href="{{ route('Home') }}" class="app-brand-link">
         <span class="app-brand-logo demo">
         <svg
             width="25"
@@ -56,7 +56,7 @@
             </g>
         </svg>
         </span>
-        <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+        <span class="app-brand-text demo menu-text fw-bolder ms-1">Ticketing</span>
     </a>
 
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -69,81 +69,38 @@
     <ul class="menu-inner py-1">
     <!-- Dashboard -->
     <li class="menu-item active">
-        <a href="{{ route('dashboardAdmin.index') }}" class="menu-link">
+        <a href="{{ route('Home') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Dashboard</div>
         </a>
-    </li>
-
-    <!-- Layouts -->
-    <li class="menu-item">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-layout"></i>
-        <div data-i18n="Layouts">Layouts</div>
-        </a>
-
-        <ul class="menu-sub">
-        <li class="menu-item">
-            <a href="layouts-without-menu.html" class="menu-link">
-                <div data-i18n="Without menu">Without menu</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="layouts-without-navbar.html" class="menu-link">
-                <div data-i18n="Without navbar">Without navbar</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="{{ route('dataAkun.index') }}" class="menu-link">
-                <div data-i18n="Container">Container</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="layouts-fluid.html" class="menu-link">
-                <div data-i18n="Fluid">Fluid</div>
-            </a>
-        </li>
-        <li class="menu-item">
-            <a href="layouts-blank.html" class="menu-link">
-                <div data-i18n="Blank">Blank</div>
-            </a>
-        </li>
-        </ul>
     </li>
 
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Pages</span>
     </li>
     <li class="menu-item">
-        <a href="{{ route('dataKendaraan.index') }}" class="menu-link">
+        <a href="{{ route('dataMahasiswa.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-dock-top"></i>
-            <div>Data Kendaraan Parkir</div>
+            <div>Data Mahasiswa</div>
         </a>
     </li>
+
     <li class="menu-item">
-        <a href="{{ route('dataRiwayat.index') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-            <div>Data Riwayat Parkir Terdahulu</div>
+        <a  class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+            <div>Data Parkir</div>
         </a>
+        <ul class="menu-sub">
+            <li class="menu-item">
+                <a href="{{ route('dataParkir.aktif') }}" class="menu-link">
+                <div>Parkir Aktif</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('dataParkir.nonaktif') }}" class="menu-link">
+                <div>Parkir Non Aktif</div>
+                </a>
+            </li>
+        </ul>
     </li>
-    
-    <!-- Misc -->
-    <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-    <li class="menu-item">
-        <a href="" target="_blank" class="menu-link" >
-        <i class="menu-icon tf-icons bx bx-support"></i>
-            <div data-i18n="Support">Test Menu</div>
-        </a>
-    </li>
-    <li class="menu-item">
-        <a
-        href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-        target="_blank"
-        class="menu-link"
-        >
-        <i class="menu-icon tf-icons bx bx-file"></i>
-            <div data-i18n="Documentation">Documentation</div>
-        </a>
-    </li>
-    </ul>
 </aside>

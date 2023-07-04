@@ -1,16 +1,21 @@
 @extends ('layouts.main')
 @section('container')
   <!-- Content -->
-  
     <div class="row">
       <div class="col-lg-12 mb-4 order-0">
         <div class="card">
           <div class="d-flex align-items-end row">
             <div class="col-sm-7">
               <div class="card-body">
-                <h5 class="card-title text-primary">Selamat Datang Admin!</h5>
+                <h5 class="card-title text-primary">Selamat Datang {{Auth::user()->name}}!</h5>
                 <p class="mb-4">
+                @if(Auth::user()->role==1)
                   Anda telah melakukan login sebagai <span class="fw-bold">Admin</span>.
+                @elseif(Auth::user()->role==2)
+                  Anda telah melakukan login sebagai <span class="fw-bold">Staff</span>.
+                @else
+                  Jenis Akun Tidak Memiliki Akses.
+                @endif
                 </p>
               </div>
             </div>
@@ -28,7 +33,7 @@
           </div>
         </div>
       </div>
-
+      
       <!-- Total Revenue -->
       <div class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
         <div class="card">
@@ -91,4 +96,4 @@
     </div>
 
   <!-- / Content -->
-@endsection
+  @endsection

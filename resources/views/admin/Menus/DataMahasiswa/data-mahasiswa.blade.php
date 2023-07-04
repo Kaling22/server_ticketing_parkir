@@ -40,9 +40,8 @@
           <td>{{$item->jurusan}}</td>
           <td>{{$item->fakultas}}</td>
           <td>{{$item->angkatan}}</td>
-          <td>{{$item->telepon}}</td>
-          <td>{{$item->plat->no_kendaraan}}</td>
-          
+          <td>{{$item->telepon}}</td>   
+          <td>{{$item->kendaraan}}</td> 
           <td><img width="50" height="50" src="{{Storage::url('public/posts/').$item->foto}}"></td>
           <!-- <td><span class="badge bg-label-primary me-1">Aktif</span></td> -->
           <td>

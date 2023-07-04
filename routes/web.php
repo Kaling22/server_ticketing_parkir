@@ -8,15 +8,18 @@ use App\Http\Controllers\Admin\data_kendaraan;
 use App\Http\Controllers\Admin\data_parkir;
 use App\Http\Controllers\Admin\data_petugas_parkir;
 use App\Http\Controllers\Admin\data_staff;
+use App\Http\Controllers\Admin\auth_si;
 
 
 Route::get('/', function () {
     return view('login/auth-login-basic');
 });
-
+Route::post('actionlogin', [auth_si::class, 'actionlogin'])->name('actionlogin');
+Route::get('actionlogout', [auth_si::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
 //Admin
     //Dashboard
     Route::resource('dashboardAdmin', DashboardAdminController::class);
+    Route::get('Home', [DashboardAdminController::class, 'Home'])->name('Home');
     //Route Untuk Data Mahasiswa
     Route::resource('dataMahasiswa', data_mahasiswa::class);
     //Route Untuk Data Kendaraan

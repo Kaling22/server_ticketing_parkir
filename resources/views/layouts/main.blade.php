@@ -50,6 +50,10 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
+    
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
   </head>
 
   <body>
@@ -59,17 +63,49 @@
         
         <!-- Sidebar -->
           <!-- Sidebar Admin -->
-          {{-- @if (Auth::user()->role == '1') --}}
+          @if (Auth::user()->role == '1')
             @include('partials.sidebarAdmin')
           <!-- Sidebar User -->
-          {{-- @elseif (Auth::user()->role == '2') --}}
-            {{-- @include('partials.sidebarUser') --}} 
-          {{-- @endif --}}
+          @elseif (Auth::user()->role == '2')
+            @include('partials.sidebarUser')
+          @endif
         <!-- navbar -->
         @include('partials.navbar')
         <!-- Content -->
         
-        @yield('container')
+        @if (Auth::user()->role == '1' || Auth::user()->role == '2')
+          @yield('container')
+        @else
+        <div class="row">
+          <div class="col-lg-12 mb-4 order-0">
+            <div class="card">
+              <div class="d-flex align-items-end row">
+                <div class="col-sm-7">
+                  <div class="card-body">
+                    <h5 class="card-title text-primary">Selamat Datang {{Auth::user()->name}}!</h5>
+                    <p class="mb-4">
+                    
+                      Jenis Akun Tidak Memiliki Akses.
+                    
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-5 text-center text-sm-left">
+                  <div class="card-body pb-0 px-0 px-md-4">
+                    <img
+                      src="../assets/img/illustrations/man-with-laptop-light.png"
+                      height="140"
+                      alt="View Badge User"
+                      data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                      data-app-light-img="illustrations/man-with-laptop-light.png"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endif
        
         <!-- footer -->
         @include('partials.footer')
@@ -96,6 +132,27 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+      $(".js-example-placeholder-multiple").select2({
+      placeholder: "Masukkan Nomer Kendaraan"
+      }); 
+    </script>
+
+    <script type="text/javascript">
+        var i = 0;
+        $("#dynamic-ar").click(function () { 
+          $("#dynamicAddRemove").append('<tr><td><input type="text" name="kendaraan[' + i +
+            ']" placeholder="Masukkan Nomer Kendaraan" class="form-control" /></td><td><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></td></tr>'
+          );
+          i++;
+        });
+        $(document).on('click', '.remove-input-field', function () {
+            $(this).parents('tr').remove();
+        });
+    </script>
   </body>
 </html>
 

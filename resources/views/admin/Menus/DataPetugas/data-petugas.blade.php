@@ -1,5 +1,6 @@
 @extends ('layouts.main')
 @section('container')
+@if (Auth::user()->role == '1')
 <!-- Content -->
 
 <div class="card">
@@ -38,4 +39,7 @@
     </table>
   </div>
 </div>
+  
+@else
+@endif
 @endsection

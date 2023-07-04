@@ -117,7 +117,7 @@ class api_data_parkir extends Controller
 
             $data_parkir = tb_parkir::query()
                 ->with(['mahasiswa' => function ($query) {
-                $query->select('nim','name','jurusan','fakultas','nfc_num','nfc_num_ktp','angkatan','foto');
+                $query->select('nim','name','jurusan','fakultas','nfc_num','nfc_num_ktp','angkatan','foto','kendaraan');
                 }])->orWhere('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
 
             return response()->json([

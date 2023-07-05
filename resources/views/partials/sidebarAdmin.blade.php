@@ -93,12 +93,12 @@
         <ul class="menu-sub">
             <li class="menu-item">
                 <a href="{{ route('dataParkir.aktif') }}" class="menu-link">
-                <div>Parkir Aktif</div>
+                <div>Terkparkir</div>
                 </a>
             </li>
             <li class="menu-item">
                 <a href="{{ route('dataParkir.nonaktif') }}" class="menu-link">
-                <div>Parkir Non Aktif</div>
+                <div>Tidak Terparkir</div>
                 </a>
             </li>
         </ul>

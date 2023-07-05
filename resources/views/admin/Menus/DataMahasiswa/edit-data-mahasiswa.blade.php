@@ -34,6 +34,23 @@
             <input type="text" class="form-control" name="fakultas" value="{{$mahasiswa->fakultas}}" required/>
         </div>
         <div class="mb-3">
+            
+            <label for="defaultSelect" class="form-label">Status</label>
+            <select id="defaultSelect" class="form-select" name="status_mahasiswa">
+            @if ($mahasiswa->status_mahasiswa == 1)
+                {{$sts = 'Mahasiswa Aktif'}}
+            @elseif ($mahasiswa->status_mahasiswa == 2)
+                {{$sts = 'Alumni'}}
+            @else
+                {{$sts = 'Drop Out'}}
+            @endif
+                <option value="{{$mahasiswa->status_mahasiswa}}">{{$sts}}</option>
+                <option value="1">Mahasiswa Aktif</option>
+                <option value="2">Alumni</option>
+                <option value="3">Drop Out</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label class="form-label">Angkatan</label>
             <input type="text" class="form-control" name="angkatan" value="{{$mahasiswa->angkatan}}" required/>
         </div>
@@ -41,14 +58,17 @@
             <label class="form-label">Telepon</label>
             <input type="text" class="form-control" name="telepon" value="{{$mahasiswa->telepon}}" required/>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Status</label>
-            <input type="text" class="form-control" name="status_mahasiswa" value="{{$mahasiswa->status_mahasiswa}}" required/>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">No Kendaraan</label>
-            <input type="text" class="form-control" name="kendaraan" value="{{$mahasiswa->kendaraan}}" required/>
-        </div>
+        <table class="table table-bordered" id="dynamicAddRemove">
+            <tr>
+                <th>Nomer Kendaraan</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td><input type="text" name="kendaraan[0]" placeholder="Enter subject" class="form-control" readonly/>
+                </td>
+                <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Add</button></td>
+            </tr>
+        </table>
 
         <div class="mb-3">
             <label class="form-label">Foto</label>
@@ -65,7 +85,7 @@
         </div>
         
         <button type="submit" class="btn btn-primary">Simpan</button>
-        </form>
+    </form>
     </div>
     </div>
 </div>

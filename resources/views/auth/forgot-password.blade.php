@@ -135,13 +135,22 @@
                 </a>
               </div>
               <!-- /Logo -->
-              <p class="mb-4">Masukkan E-mail dan Password Untuk Melakukan Login</p>
-              @if(session('error'))
+              <p class="mb-4">Masukkan E-mail Untuk Melakukan Reset Password</p>
+              @if ($errors->any())
                 <div class="alert alert-danger">
-                    <b>Terjadi Error!</b> {{session('error')}}
+                    <ul>
+                        @foreach ($errors->all() as $err)
+                            <li>{{$err}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+              @if(session()->has('status'))
+                <div class="alert alert-success">
+                    {{session()->get('status')}}
                 </div>
               @endif
-              <form id="formAuthentication" class="mb-3" action="{{ route('actionlogin') }}" method="POST">
+              <form id="formAuthentication" class="mb-3" action="{{route('password.email')}}" method="POST">
                 @csrf
                 <div class="mb-3">
                   <label for="email" class="form-label">Email</label>
@@ -154,27 +163,8 @@
                     autofocus
                   />
                 </div>
-                <div class="mb-3 form-password-toggle">
-                  <div class="d-flex justify-content-between">
-                    <label class="form-label" for="password">Password</label>
-                    <a href="forgot-password">
-                      <small>Forgot Password?</small>
-                    </a>
-                  </div>
-                  <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-control"
-                      name="password"
-                      placeholder="Password"
-                      aria-describedby="password"
-                    />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                  </div>
-                </div>
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Login</button>
+                  <button class="btn btn-primary d-grid w-100" type="submit">Submit</button>
                 </div>
               </form>
             </div>

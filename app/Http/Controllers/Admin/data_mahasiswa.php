@@ -89,9 +89,9 @@ class data_mahasiswa extends Controller
      */
     public function edit($id)
     {
-        $kendaraan = tb_kendaraan::all();
+       
         $mahasiswa = tb_mahasiswa::find($id);
-        return view('admin.Menus.DataMahasiswa.edit-data-mahasiswa',compact('mahasiswa', 'kendaraan'));
+        return view('admin.Menus.DataMahasiswa.edit-data-mahasiswa',compact('mahasiswa'));
     }
 
     /**
@@ -103,12 +103,13 @@ class data_mahasiswa extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kendaraan = tb_kendaraan::all();
         $mahasiswa = tb_mahasiswa::find($id);
         // validasi format gambar
         $this->validate($request, [
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
+       // $mahasiswa = new tb_mahasiswa;
+        $plat = implode(",", $request->kendaraan);
 
         $image = $request->file('foto');
         $image->storeAs('public/posts/', $image->hashName());
@@ -124,7 +125,7 @@ class data_mahasiswa extends Controller
             'angkatan' => $request->angkatan,
             'telepon' => $request->telepon,
             'status_mahasiswa' => $request->status_mahasiswa,
-            'id_kendaraan' => Str::slug($request->no_kendaraan),
+            'kendaraan' =>$plat,
         ]);
         $mahasiswa = tb_mahasiswa::find($id);
         

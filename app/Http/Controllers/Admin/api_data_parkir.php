@@ -115,11 +115,18 @@ class api_data_parkir extends Controller
     {
         try{
 
+            $plat = tb_mahasiswa::query()->select('kendaraan')
+            ->orWhere('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
+
+            $explode_id = explode(',', $plat->kendaraan);
+            $data_mahasiswa = array_merge($explode_id);
+
             $data_parkir = tb_parkir::query()
                 ->with(['mahasiswa' => function ($query) {
                 $query->select('nim','name','jurusan','fakultas','nfc_num','nfc_num_ktp','angkatan','foto','kendaraan');
                 }])->orWhere('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
-
+            
+            $data_parkir['kendaraan'] = $explode_id;
             return response()->json([
                 'success' => true,
                 'message' => 'showing data mahasiswa',

@@ -19,12 +19,11 @@ class api_mahasiswa extends Controller
      */
     public function show($para)
     {
-        $tes =[];
         try{
-           $cars = tb_mahasiswa::query()->select('kendaraan')
+           $plat = tb_mahasiswa::query()->select('kendaraan')
             ->orWhere('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
 
-            $explode_id = explode(',', $cars->kendaraan);
+            $explode_id = explode(',', $plat->kendaraan);
             $data_mahasiswa = array_merge($explode_id);
 
             $sql_mahasiswa = tb_mahasiswa::select('nim','name','jurusan','fakultas','nfc_num','nfc_num_ktp','angkatan','foto')

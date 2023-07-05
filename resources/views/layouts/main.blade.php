@@ -133,13 +133,7 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <!-- Select2 -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-      $(".js-example-placeholder-multiple").select2({
-      placeholder: "Masukkan Nomer Kendaraan"
-      }); 
-    </script>
+    
 
     <script type="text/javascript">
         var i = 0;

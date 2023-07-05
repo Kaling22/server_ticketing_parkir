@@ -33,16 +33,20 @@
             <input type="text" class="form-control" name="fakultas" required/>
         </div>
         <div class="mb-3">
+            <label for="defaultSelect" class="form-label" required>Status</label>
+            <select id="defaultSelect" class="form-select" name="status_mahasiswa" required>
+                <option value="1">Mahasiswa Aktif</option>
+                <option value="2">Alumni</option>
+                <option value="3">Drop Out</option>
+            </select>
+        </div>
+        <div class="mb-3">
             <label class="form-label">Angkatan</label>
             <input type="text" class="form-control" name="angkatan" required/>
         </div>
         <div class="mb-3">
             <label class="form-label">Telepon</label>
             <input type="text" class="form-control" name="telepon" required/>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Status</label>
-            <input type="text" class="form-control" name="status_mahasiswa" required/>
         </div>
         <table class="table table-bordered" id="dynamicAddRemove">
             <tr>

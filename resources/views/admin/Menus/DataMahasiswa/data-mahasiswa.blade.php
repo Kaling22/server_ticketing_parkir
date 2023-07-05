@@ -21,6 +21,7 @@
           <th>Nama</th>
           <th>Jurusan</th>
           <th>Fakultas</th>
+          <th>Status</th>
           <th>Angkatan</th>
           <th>Telepon</th>
           <th>Nomer Kendaraan</th>
@@ -39,6 +40,13 @@
           <td>{{$item->name}}</td>
           <td>{{$item->jurusan}}</td>
           <td>{{$item->fakultas}}</td>
+          @if ($item->status_mahasiswa == 1)
+          <td>Mahasiswa Aktif</td>
+          @elseif ($item->status_mahasiswa == 2)
+          <td>Alumni</td>
+          @else
+          <td>Drop Out</td>
+          @endif
           <td>{{$item->angkatan}}</td>
           <td>{{$item->telepon}}</td>   
           <td>{{$item->kendaraan}}</td> 

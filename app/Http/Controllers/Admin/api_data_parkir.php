@@ -32,7 +32,7 @@ class api_data_parkir extends Controller
             'status' => 'success ',
             'message' => 'showing all parkir',
             'data' => $data_parkir
-        ], Response::HTTP_OK);
+        ], 200);
     }
 
 
@@ -100,7 +100,7 @@ class api_data_parkir extends Controller
                 'success' => true,
                 'message' => 'data parkir created',
                 'data' => $resource_parkir
-            ], Response::HTTP_OK);
+            ], 200);
         }
 
     }
@@ -131,7 +131,7 @@ class api_data_parkir extends Controller
                 'success' => true,
                 'message' => 'showing data mahasiswa',
                 'data' => $data_parkir
-            ], Response::HTTP_OK);
+            ], 200);
         }
         catch(\Exception $park){
             return response()->json([
@@ -170,7 +170,7 @@ class api_data_parkir extends Controller
                 'success' =>  true,
                 'message' => 'data updated',
                 'data' => $parkir
-            ], Response::HTTP_OK);
+            ], 200);
         }
         catch(\Exception $e){
             return response()->json([
@@ -181,14 +181,4 @@ class api_data_parkir extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        
-    }
 }

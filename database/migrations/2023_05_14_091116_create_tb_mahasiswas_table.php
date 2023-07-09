@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('foto');
             $table->string('telepon');
             $table->smallInteger('status_mahasiswa');
-            $table->json('kendaraan');
+            $table->text('kendaraan');
             $table->timestamps();
         });
     }

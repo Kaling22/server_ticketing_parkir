@@ -33,7 +33,7 @@ class api_mahasiswa extends Controller
                 'success' => true,
                 'message' => 'showing data mahasiswa',
                 'data' => $sql_mahasiswa,
-            ], Response::HTTP_OK);
+            ], 200);
         }
         catch(\Exception $park){
             return response()->json([

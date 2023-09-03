@@ -78,7 +78,8 @@
                     <span class="d-none d-sm-block required-field">Upload new photo</span>
                     <i class="bx bx-upload d-block d-sm-none"></i>
                     <input type="file" name="foto" id="inputImage"
-                        class="form-control @error('image') is-invalid @enderror" required>
+                        class="form-control @error('image') is-invalid @enderror">
+                    <img src="{{Storage::url('public/posts/').$mahasiswa->foto}}" width="100" height="100" id="uploadedAvatar">
                 </label>
                 <p class="text-muted mt-1">Allowed JPG, JPEG, GIF or PNG. Max size of 2MB</p>
             </div>
@@ -89,4 +90,5 @@
     </div>
     </div>
 </div>
+
 @endsection

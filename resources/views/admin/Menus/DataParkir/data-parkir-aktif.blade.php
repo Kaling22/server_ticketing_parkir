@@ -32,8 +32,8 @@
           @else
           <td>Terjadi Kesalahan</td>
           @endif
-          <td>{{$item->created_by}}</td>
-          <td>{{$item->updated_by}}</td>
+          <td>{{$item->petugasMasuk->name}}</td>
+          <td>{{$item->petugasKeluar->name}}</td>
           <td>{{$item->hari}}</td>
           <td>{{$item->tanggal}}</td>
           <td>{{$item->jam}}</td>

@@ -1,16 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\tb_parkir;
 use App\Models\tb_mahasiswa;
-
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -35,7 +30,6 @@ class api_data_parkir extends Controller
         ], 200);
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -46,7 +40,6 @@ class api_data_parkir extends Controller
     {   
         $validator = Validator::make($request->all(), [
             'created_by' => 'required|string',
-            //'updated_by' => 'required|string',
         ]);
 
         if($validator->fails()){
@@ -82,7 +75,6 @@ class api_data_parkir extends Controller
                 "data" => null
             ],Response::HTTP_NOT_ACCEPTABLE);
         }else {
-            //$day = ;
             $resource_parkir = tb_parkir::create([
                 'nim' => $z,
                 'nfc_num' => $x,
@@ -142,7 +134,6 @@ class api_data_parkir extends Controller
         }
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -157,7 +148,6 @@ class api_data_parkir extends Controller
                 ->with(['mahasiswa' => function ($query) {
                 $query->select('nim','name','jurusan','fakultas','nfc_num','nfc_num_ktp','angkatan','foto');
                 }])->where('nim', $para)->orWhere('nfc_num',$para)->orWhere('nfc_num_ktp',$para)->latest('created_at')->first();
-            // $parkir = tb_parkir::findorFail($id);
             $parkir->update([
                 'updated_by' => Str::slug($request->updated_by),
                 'status_masuk' => 0,

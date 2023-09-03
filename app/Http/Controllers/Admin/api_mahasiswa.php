@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\tb_mahasiswa;
@@ -10,7 +8,6 @@ use Illuminate\Support\Str;
 use App\Models\User;
 class api_mahasiswa extends Controller
 {
-
     /**
      * Display the specified resource.
      *

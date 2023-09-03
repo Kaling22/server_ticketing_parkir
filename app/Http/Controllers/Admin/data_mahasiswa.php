@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\tb_mahasiswa;
 use App\Models\tb_kendaraan;
+use App\Models\tb_parkir;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use \Log;
-
+use PDF;
 class data_mahasiswa extends Controller
 {
     /**
@@ -78,9 +79,13 @@ class data_mahasiswa extends Controller
      */
     public function edit($id)
     {
-       
         $mahasiswa = tb_mahasiswa::find($id);
-        return view('admin.Menus.DataMahasiswa.edit-data-mahasiswa',compact('mahasiswa'));
+
+        $plat = tb_mahasiswa::query()->select('kendaraan')
+        ->Where('id', $id)->first();
+
+        $explode_id = explode(',', $plat->kendaraan);
+        return view('admin.Menus.DataMahasiswa.edit-data-mahasiswa',compact('mahasiswa','explode_id'));
     }
 
     /**
@@ -101,6 +106,7 @@ class data_mahasiswa extends Controller
         $plat = implode(",", $request->kendaraan);
 
         $image = $request->file('foto');
+       // $image = $request->('foto');
         $image->storeAs('public/posts/', $image->hashName());
         Storage::delete('public/posts/'.$mahasiswa->foto);
         $mahasiswa->update([
@@ -134,4 +140,28 @@ class data_mahasiswa extends Controller
         $delete->delete();
         return redirect()->route('dataMahasiswa.index');
     }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($nim)
+    {
+        $riwayatMahasiswa = tb_parkir::select('nim','status_keluar','tanggal','jam','created_by','updated_by')->where('nim', $nim)->get();
+        foreach ($riwayatMahasiswa as $status) {
+            switch ($status->status_keluar) {
+                case '0':
+                    $sts[] = 'Terparkir';
+                    break;
+                case '1':
+                    $sts[] = 'Tidak Terparkir';
+                    break;
+            }
+        }
+        // Table::select('name','surname')->where('id', 1)->get();
+    	$pdf = PDF::loadview('admin.Menus.DataMahasiswa.mahasiswa_pdf',compact('riwayatMahasiswa','sts'));
+    	return $pdf->stream('laporan-parkir-pdf');
+    }
+
 }

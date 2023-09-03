@@ -51,9 +51,6 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../../assets/js/config.js"></script>
     
-    <!-- Select2 -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    
   </head>
 
   <body>
@@ -146,7 +143,16 @@
         $(document).on('click', '.remove-input-field', function () {
             $(this).parents('tr').remove();
         });
+
+        inputImage.onchange = evt => {
+          const [file] = inputImage.files
+          if (file) {
+              uploadedAvatar.src = URL.createObjectURL(file)
+          }
+}
     </script>
+    
+    
   </body>
 </html>
 

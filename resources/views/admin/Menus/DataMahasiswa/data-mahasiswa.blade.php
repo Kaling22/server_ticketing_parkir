@@ -53,14 +53,19 @@
           <td><img width="50" height="50" src="{{Storage::url('public/posts/').$item->foto}}"></td>
           <!-- <td><span class="badge bg-label-primary me-1">Aktif</span></td> -->
           <td>
-          <a href="{{ route('dataMahasiswa.edit', $item->id) }}"
-          class="btn btn-sm btn-secondary">Edit</a>
-          <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-          action="{{ route('dataMahasiswa.destroy', $item->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
-          </form>
+            <a href="{{ route('dataMahasiswa.edit', $item->id) }}"
+            class="btn btn-sm btn-secondary">Edit</a>
+
+            <a href="{{ route('dataMahasiswa.show', $item->nim) }}"
+            class="btn btn-sm btn-primary">Riwayat</a>
+
+            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
+            action="{{ route('dataMahasiswa.destroy', $item->id) }}" method="POST">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+            </form>
+
           </td>
         </tr>
        @endforeach

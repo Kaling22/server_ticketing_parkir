@@ -51,8 +51,6 @@ class data_staff extends Controller
 
         
         $input = $request->all();
-        //$input['password'] = bcrypt($input['password']);
-        //$user = User::create($input);
         $user = User::create([
             'role' => 2,
             'nip_kode' => $request->nip_kode,

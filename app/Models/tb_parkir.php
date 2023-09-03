@@ -44,8 +44,13 @@ class tb_parkir extends Model
     }
     
 
-    public function petugas()
+    public function petugasMasuk()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function petugasKeluar()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
     }
 }

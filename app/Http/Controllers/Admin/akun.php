@@ -9,7 +9,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 class akun extends Controller
 {
-    //Done
     //Global
     public function login(Request $request)
     {
@@ -36,12 +35,10 @@ class akun extends Controller
             ], 401);
         }
     }
-    //Done
     //REgister Khusus Admin
     public function register(Request $request){
         //set validation
         $validator = Validator::make($request->all(), [
-            //'role'      => 'required|integer|digits:1',
             'nip_kode'      => 'required',
             'name'      => 'required',
             'alamat'      => 'required',
@@ -56,8 +53,6 @@ class akun extends Controller
 
         //return response JSON user is created
         $input = $request->all();
-        //$input['password'] = bcrypt($input['password']);
-        //$user = User::create($input);
         $user = User::create([
             'role' => 1,
             'nip_kode' => $request->nip_kode,
@@ -82,7 +77,6 @@ class akun extends Controller
         ], 200);
         
     }
-    //done
     //Global
     public function logout(Request $request)
     {

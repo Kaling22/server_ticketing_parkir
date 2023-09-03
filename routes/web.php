@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Http\Request;
+
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\data_mahasiswa;
 use App\Http\Controllers\Admin\data_kendaraan;
@@ -28,6 +29,7 @@ Route::get('actionlogout', [auth_si::class, 'actionlogout'])->name('actionlogout
     Route::get('Home', [DashboardAdminController::class, 'Home'])->name('Home');
     //Route Untuk Data Mahasiswa
     Route::resource('dataMahasiswa', data_mahasiswa::class);
+    // Route::get('cetak_pdf', [data_mahasiswa::class, 'cetak_pdf'])->name('cetak_pdf');
     //Route Untuk Data Kendaraan
     Route::resource('dataKendaraan', data_kendaraan::class);
     //Route Untuk Data Parkir
